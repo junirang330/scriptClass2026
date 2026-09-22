@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스크립트 데이터 타입</title>
+</head>
+<body>
+    <SCript>
+       // script 사이에 스크립트 코드 작성한다.
+       // head 또는 body  두 영역 중 하나에 입력한다.
+       // 변수 선언시 사용하는 키워드 : var, let const
+       // var 키워드 : 중복선언 가능, 재할당 가능
+       // ES6 버전부터는, var을 사용하지 않는다.
+       // 자바스크립트는 데이터 타입이 존재한다. 다만 선언하지 않는다. 
+       // 자바스크립트는 동적인 기능을 작성할 수 있다.
+       // 함수를 생성하여 작성한다.
+
+       var title = 'book';
+       console.log(title);  // book
+       
+       var title = 'movie';
+       console.log(title);  // 중복 선언
+
+       title = 'music';
+       console.log(title);  // 재할당
+
+        // let : 재선언은 불가, 재할당만 가능하다
+        let title_01= 'book2';
+        console.log(title_01);
+
+        title_01 = 'html';
+        console.log(title_01);
+
+        // const: 재선언 불가 / 재할당 불가
+        const title_02 = 'java'; // title_02의 데이터 타입 : 문자열(character는 없음)
+        console.log(title_02);
+
+        // title_02 = 'python';
+        // console.log(title_02);
+
+        let x=5, y=7;  // x와 y의 데이터 타입은 정수(int)
+        x='java';
+        console.log(x);
+        console.log(typeof x); // 변수 데이터 타입 확인하는 명령어 -> string으로 결과출력
+        // 삼항연산자 : 조건식 ? true : false
+        let big = x>y?x:y;
+        console.log(big);
+        console.log(typeof big);  // number 로 결과출력
+
+        // 자바스크립트는 null도 값이다.
+        let user = null;  // user 변수는 현재 비어 있다
+        // let user01 = NULL;  NULL 은 뭔지 몰라, 오류 출력됨 
+
+        let Null = '안녕'; // Null은 여기서 변수 이름이다.
+        console.log(user);
+        // console.log(user01);
+        console.log(Null);
+
+        let a = 1;
+        let b = 'k';
+        console.log(a+b);  // 결과 : 1k  (자바처럼 나열이 됨-string)
+        console.log(a*b);  // NaN : not a number : 숫자가 아니다! 라는 오류가 뜬다. (숫자가 아니므로 곱하기 불가)
+        console.log('a는 '+a+', b는 '+b+'이다');
+        // 자바스크립트에서 변수와 문자를 자연스럽게 출력하는 기호
+        // ` (빽틱)을 사용한다.
+        // `a는 ${변수}이고, b는 ${b}이다.`  (괄호 : 블록스코프)
+        console.log(`a는 ${a}이고, b는 ${b}이다`);
+
+        
+
+
+    </SCript>
+
+    
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바스크립트 연습문제 기초</title>
+</head>
+<body>
+    <!-- problem1() 스크립트에서 작성할 함수 이름이다.
+         버튼을 클릭하는 사건이 일어나면 problem1() 함수를 호출하여
+         실행하라 라는 의미이다.
+         단, 함수는 스크립트영역에만 작성할 수 있다. 
+    -->
+    <button onclick="problem1()">문제1: 변수와 상수 출력</button>
+    <p id="p1"></p>
+    <hr/>
+    <button onclick = "problem2()">문제2: 두 수 더하기</button>
+    <p id="p2"></p>
+    <hr/>
+    <input id = "numInput" type="number" placeholder="숫자 입력"/>
+    <button onclick = "showVariable()">값 확인</button>
+    <p id="output1"></p>
+    
+    <script>
+        let print01 = document.getElementById('p1');  // 전역변수로 먼저 설정한다.
+        let print02 = document.getElementById('p2');
+        // input에서 입력한 값을 출력하려면, value 메소드 이용한다.
+        let value01 = document.getElementById('numInput');
+        let print03 = document.getElementById('output1');
+        function problem1(){
+            let name = '홍길동';
+            let age = 20;
+            // p1이라는 id를 가진 요소(태그) 안쪽 문자로
+            // 이름:홍길동, 나이:20 으로 저장하여 주세요.
+            // document.getElementById('p1').innerText='이름 :' + name + ', 나이' + age;
+            print01.innerText=`이름 :${name}, 나이 :${age}`;
+        }
+        // DOM을 이용한다. 자바스크립트가 태그에 접근하도록
+        // 작성하는 방법이다.  (DOM : Document 문서)
+        // script가 먼저 오면, 호이스팅 문제로, function 작동하지 않는다.
+        function problem2(){
+            let num1 = 8;
+            let num2 = 7;
+            let sum = num1 + num2;
+            print02.innerText=`합계: ${sum}`
+        }
+        function showVariable(){
+            let num = Number(value01.value);
+            console.log(num);
+            print03.innerText=`변수 num의 값: ${num}`;
+            // input 태그를 이용해 입력받은 모든값은 '15'문자이다.
+            // 형변환이 필요하다. => 스크립트는 숫자로 형변환하는 함수로 Number() 사용한다.
+            print03.innerText=`변수 num의 값: ${num+15}`;
+        }
+        
+        
+
+           
+        
+        
+        
+
+
+
+    </script>
+
+</body>
+</html>
