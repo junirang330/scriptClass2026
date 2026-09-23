@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>totalPrice</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            font-size: 16px;
+        }
+        h2{
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .container{
+            display: flex;
+            height: 50px;
+            /* justify-content: space-between; */
+            align-items: center;
+            gap:10px;
+        }
+        input#count{
+            width: 100px;
+            height: 25px;
+            border: 1px solid gray;
+            border-radius: 7px;
+            padding-left: 13px;
+
+        }
+        input#count::focus{
+            border: none;
+
+        }
+
+        button{
+            background-color: rgb(94, 165, 94);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 5px 10px;
+        }
+        div.result{
+            padding: 10px;
+            background-color: rgb(238, 236, 236);
+            width: 300px;
+            font-size: 14px;
+            border: none;
+            border-radius: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <h2>상품 주문하기</h2>
+    <h3>상품 단가: 15,000원</h3>
+    <div class="container">
+        <p>수량: </p>
+        <input type="number" id="count" />
+        <button onclick="calcPrice()">금액 계산</button>
+    </div>
+    <div class="result">
+        <p id="print">수량을 입력하고 계산 버튼을 누르세요.</p>
+    </div>
+
+    <input type="text" id="price">
+    <button onclick="test()">테스트</button>
+
+    <script>    
+        let number = document.getElementById('count');
+        let print = document.getElementById('print');
+        let priceDefault = 15000;
+        let cnt = 0;
+
+        function test(){
+            let price = Number(document.getElementById('price').value);
+            console.log(price.toLocaleString());
+        }
+        
+        function calcPrice() {
+            
+            cnt = Number(number.value);
+            console.log(cnt);
+            let totalPrice = cnt*priceDefault;
+            if(cnt<=0){
+                alert('수량을 1개 이상 입력해주세요.')
+            }else{
+                if(totalPrice>=50000){
+                    // console.log(totalPrice);
+                    print.innerText = `총 결제 금액:\n ${totalPrice.toLocaleString()}원 무료배송 대상이며, 사은품이 함께 증정됩니다!`;
+                }else{
+                    console.log(totalPrice);
+                    print.innerText = `총 결제 금액:\n ${totalPrice.toLocaleString()}원\n(5만원 미만 구매 시 3,000원이 추가됩니다.)`;
+                }
+                
+            }
+
+        }
+
+
+    </script>
+    
+</body>
+</html>

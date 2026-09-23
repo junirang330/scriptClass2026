@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test_if</title>
+</head>
+<body>
+    <input type="text" id="input_id"/>
+    <input type="password" id="input_pw"/>
+    <button onclick="logincheck()">로그인</button>
+    <p id="output"></p>
+
+    <script>
+        // 자바스크립트의 데이터 타입 구분
+        // 1. 원시타입(Primitive Type) : 순수데이터를 말함
+        //          => String, number, boolean, null, undifined...
+        // 2. 객체타입(Object Type) : Object, Array, Function ...
+        //          => 객체타입 길이 출력하는 프로퍼티 length 사용한다.
+
+        let num = 5;
+        if(num%2==0) {
+            console.log('짝수');
+        }else{
+            console.log("홀수");
+        }
+
+        // 로그인 문제
+        // 1. id와 pw 입력하는, input 태그 2개 작성
+        // 2. button 버튼 에 onclick = logincheck() 함수를 작성
+        // 3. id가 'admin' 이면서 pw = '1234' 이면 '로그인 성공', 아니면 '로그인 실패'
+        // 4. console.log에 출력할 것
+        let id = document.getElementById('input_id');
+        let pw = document.getElementById('input_pw');
+
+        function logincheck(){
+            let id1 = id.value;
+            let pw1 = pw.value;
+            // 원시타입인 string 데이터 타입에 length 프로퍼티를 사용하는 순간
+            // 자바스크립트가 알아서, 객체(object) 타입으로 다루어 준다.
+            // 이런 부분을 스크립트의 유연성이라 한다. 
+            if(id1.length >= 8){
+                console.log('안전한 아이디 입니다.');
+                console.log(typeof id1);
+            }else{
+                console.log('불안전한 아이디 입니다.');
+            }
+
+            // if(id1=='admin'&& pw1=='1234') {
+            //     console.log('로그인 성공');
+            //     alert('로그인 성공');
+            // }else{
+            //     console.log('로그인 실패');
+            //     alert('로그인 실패');
+            // }
+        }
+
+
+
+
+    </script>
+
+</body>
+</html>

@@ -21,12 +21,36 @@
     <button onclick = "showVariable()">값 확인</button>
     <p id="output1"></p>
     
+    <hr/>
+    <!-- num1과 num2의 값을 입력하고, 두 값을 비교하여
+         n1>n2 ? false, n1=n2 ? false. n1<n2?true
+    -->
+    <input type="number" id="num1" placeholder="숫자1"/>
+    <input type="number" id="num2" placeholder="숫자2"/>
+    <button onclick="compareNum()">비교</button>
+    <p id="output5"></p>
+
+    <hr/>
+    <input type="number" id="score" placeholder="점수 입력"/>
+    <button onclick="checkGrade()">등급 확인</button>
+    <p id="output8"></p>
+
     <script>
         let print01 = document.getElementById('p1');  // 전역변수로 먼저 설정한다.
         let print02 = document.getElementById('p2');
         // input에서 입력한 값을 출력하려면, value 메소드 이용한다.
+        // 자바스크립트는 코드 실행 순서가 존재하는데, 스크립트 파일이 로드될 때, 
+        // 함수 바깥쪽 코드를 먼저 실행한다.  (전역변수 먼저 읽는다.)
         let value01 = document.getElementById('numInput');
         let print03 = document.getElementById('output1');
+
+        let number1 = document.getElementById('num1');
+        let number2 = document.getElementById('num2');
+        let print04 = document.getElementById('output5')
+
+        let score01 = document.getElementById('score');
+        let print05 = document.getElementById('output8');
+
         function problem1(){
             let name = '홍길동';
             let age = 20;
@@ -53,8 +77,27 @@
             print03.innerText=`변수 num의 값: ${num+15}`;
         }
         
+        function compareNum(){
+            let n1 = Number(number1.value);
+            let n2 = Number(number2.value);
+            console.log(n1);
+            console.log(n2);
+            print04.innerText = `결과: ${n2 > n1 ? 'true' : 'false'}`;
+        }
+
+        // 삼항연산자 이용하기
+        // 90이상 : A, 80이상 : B, 70이상 : C, 60이상: D  / 그 외 : F
+        function checkGrade(){
+            let score = Number(score01.value);
+            console.log(score);
+            let grade = score>=90?'A':score>=80?'B':score>=70?'C':score>=60?'D':'F';
+            print05.innerText=`등급: ${grade}`;
+        }
+
         
 
+
+        
            
         
         
