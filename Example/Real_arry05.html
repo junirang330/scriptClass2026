@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습예제 05</title>
+    <style>
+        /* .group{
+            display : flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+        } */
+
+    </style>
+</head>
+<body>
+    <h2>실시간 재고 관리</h2>
+    <div id = "output"></div>
+    
+    <script>
+        let output = document.getElementById('output');
+        let product = ['노트북','마우스','키보드'];
+        let amount = [3, 3, 2];
+        let result = '';
+
+        let total = 8;
+        let count = 0;
+
+        function render(){
+            for(let i = 0; i<product.length; i++){
+                result += `${product[i]} : <span id = "countNum">${amount[i]}</span><button onclick="minus()">-</button><button onclick="plus()">+</button></br>`;
+                output.innerHTML = result;
+                count = amount[i];
+                // console.log(count);
+            }
+            result += `총 재고 : ${total}`;
+            output.innerHTML = result;
+        }
+        function minus(){
+            // 마이너스 버튼 클릭은 1까지만 감소 가능
+            if(count>1){
+                count --;
+                countNum.innerText = count;
+                total --;
+            }else{
+                alert('최소수량 1개까지만 가능')
+            }
+        }
+        function plus(){
+            // 플러스 버튼은 최대 제한 없음
+            count ++;
+            countNum.innerText = count; 
+            total ++;
+        }
+
+        render();
+
+
+                // 
+                // let countNum = document.getElementById('countNum');
+                // function minus(){
+                //     // 마이너스 버튼 클릭은 1까지만 감소 가능
+                //     // count = 3; // 현재 수량
+                //     if(count>1){
+                //         count --;
+                //         countNum.innerText = count;
+                //         total --;
+                //     }else{
+                //         alert('최소수량 1개까지만 가능')
+                //     }
+                // }
+    
+                // function plus(){
+                //     // 플러스 버튼은 최대 제한 없음
+                //     count ++;
+                //     countNum.innerText = count; 
+                //     total ++;
+    
+                    
+                // }
+    
+                // result2 = `총 재고: ${total}`;
+    
+    
+        
+    
+
+
+
+
+    </script>
+</body>
+</html>

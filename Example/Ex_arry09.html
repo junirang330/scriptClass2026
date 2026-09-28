@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연습문제02</title>
+</head>
+<body>
+    <h2>배열 + for문 + if문 문제</h2>
+    <label for ="num">2번 숫자 배열 입력(예: 12, 7, 5, 20, 33, 18)</label>
+    <input id = "num" type = "text"/>
+    <button onclick="calc()">결과 확인</button>
+    <p id="print"></p>
+    <script>
+        let p1 = document.getElementById('print');
+        function calc(){
+            let input = document.getElementById('num').value;
+            let scores = input.split(',');
+            let evenNum = '';
+            let oddNum = '';
+            // console.log(result1);
+            // console.log(result2);
+
+            for(let i = 0; i<scores.length; i++){
+                if(scores[i]%2 == 0) evenNum += scores[i]  + ',';
+                else oddNum += scores[i]  + ',';
+                console.log(evenNum);
+                console.log(oddNum);
+
+                p1.innerText = `짝수 : ${evenNum.slice(0,-1)} / 홀수 : ${oddNum.slice(0,-1)}`;
+            }
+        }
+    </script>
+
+</body>
+</html>

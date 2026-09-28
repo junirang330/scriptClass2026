@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실전예제 02</title>
+    <style>
+        .shortage{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>책 재고 현황</h2>
+    <button onclick = "calc()">재고 확인</button>
+    <div id = "output"></div>
+    <script>
+        let output = document.getElementById('output');
+        function calc(){
+            // 책 제목 + 수량 배열 생성
+            let bookName = ['자바스크립트 입문','HTML&CSS','파이썬 기초','데이터 분석'];
+            let stock = [10, 3, 7, 2];
+            let result = '';
+            let status = '';
+            let className = '';
+            
+            for(let i = 0; i<bookName.length; i++){
+                if(stock[i]<=5) {
+                    status += '재고 부족';
+                    className = 'shortage';
+                }else {
+                    stauts = '재고 충분';
+                    className = 'enough';
+                }
+                // 빽틱 사용해서, result에 태그 작성
+                result += `${bookName[i]} : ${stock[i]}권 - <span class = '${className}'>${status}</span></br>`;
+            }
+            // 출력
+            output.innerHTML = result;
+        }
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실무 배열 연습문제</title>
+    <style>
+        .fail{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h2>학생 성적표</h2>
+    <button onclick ="showGrade()">성적표 출력</button>
+    <div id="output"></div>
+    <script>
+        // innerText => <p id = "p1">값이 문자가 저장</p>
+        // innerText => <p id = "p1"><span></span></p>
+                         // span 태그가 아닌, span이란 문자에 불과하다.
+        // innerHTML => <div id = "ouptut"><span class = 'a'>~~~</span></div>
+                         // 안에 span 태그 인식 + css도 입힐 수 있다.
+        // 이런 경우, span은 태그가 되고, class = 'a' 라는 클래스 이름도 가질 수 있다.
+        let output = document.getElementById('output');
+        function showGrade(){
+            // 학생이름과 점수를 배열로 생성한다.
+            let student = ['철수','영희','민수','수지','준호'];
+            let scores = [85, 58, 92, 77, 61];
+            let result = '';
+            for(let i = 0; i<student.length; i++){
+                let status = scores[i]>=60? '합격':'불합격';
+                let className = scores[i]>=60? 'pass':'fail';
+                // 빽틱 사용해서 result에 태그 작성
+                result += `${student[i]} : ${scores[i]}점 - <span class ='${className}'>${status}</span></br>`;
+            }
+            output.innerHTML = result;
+        }
+    </script>
+
+</body>
+</html>

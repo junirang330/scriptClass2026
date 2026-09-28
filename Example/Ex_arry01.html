@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p id="p1"></p>
+    <p id="p2"></p>
+    <p id="p3"></p>
+    <p id="p4"></p>
+    <p id="p5"></p>
+    <script>
+        // 문제1. p1태그에 1번 인덱스 값 출력
+        let number = [10, 20, 30, 40, 50, 60];
+        console.log(number[1]);
+        let p1 = document.getElementById('p1');
+        p1.innerText = `1번. 1번 인덱스 값 출력 : ${number[1]}`;
+
+        // 문제2. p2태그에 slice를 이용하여 green 과
+        // blue의 값만 출력
+        let colors = ['red','green','blue','yellow'];
+        let sliced = colors.slice(1,3);
+        // console.log(sliced)
+        let p2 = document.getElementById('p2');
+        p2.innerText = `2번. blue와 green 출력 : ${colors.slice(1,3)}`;
+
+        // 문제3. p3태그에 for문을 이용하여 요소 출력
+        let names = ['Jason','Alice','Candy'];
+        let group = "";
+        for(let i = 0; i<names.length; i++) {
+            group += names[i] + ' ';
+        }
+        console.log(group);
+        let p3 = document.getElementById('p3');
+        p3.innerText = `3번. for문 이용하여 요소 출력 : ${group}`;
+
+
+        // 문제4. p4태그에 1~10까지 배열생성후, 짝수만 출력
+        let nums = [];
+        // nums = new Array(10);
+        // console.log(nums);
+        // 1~10까지 배열 생성단계
+        let result = '';
+        for(let i = 1; i<=10; i++){
+            nums.push(i);
+            if(nums[i-1]%2==0) result += nums[i-1]+ ' ';
+        }
+        
+        // let evenNum = [];
+        // for(let i = 1; i<nums.length; i++){
+        //     if((i)%2==0) {
+        //         evenNum[i] = i;
+        //     }
+        // }
+        // console.log(evenNum);
+
+        let p4 = document.getElementById('p4');
+        p4.innerText = `4번. 짝수 출력 : ${result}`;
+        
+        // 문제5. p5태그에 score가 80이상이면 '합격',
+        // 아니면 '불합격' 출력
+        let scores = [90,75,60,100,88];
+        let assort = [];
+        for(let i = 0; i<scores.length; i++){
+            if(scores[i]>=80) {
+                // assort[i] = '합격';
+                assort += '합격' + ' ';
+            }else{
+                // assort[i] = '불합격';
+                assort += '불합격' + ' ';
+            }
+
+        }
+
+        let p5 = document.getElementById('p5');
+        p5.innerText = `5번. 합격여부 출력 : ${assort}`;
+
+
+    </script>
+</body>
+</html>

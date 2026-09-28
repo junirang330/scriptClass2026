@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습예제 04</title>
+    <style>
+        .max{
+            color : green;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h2>투표 결과</h2>
+    <button onclick="calc()">투표 집계</button>
+    <div id = "output"></div>
+    <script>
+        let output = document.getElementById('output');
+        function calc(){
+            // 후보자 이름 + 투표 수 배열 생성
+            let candidate = ['철수','영희','민수'];
+            let voteNum = [120, 150, 90];
+            let result = '';
+            for(let i = 0; i<candidate.length; i++){
+                // 가장 많이 투표한 사람 확인한 거 변수
+                let max = 0;
+                let isMax = '';
+                for(let i = 0; i<candidate.length; i++){
+                    if(voteNum[i]>max) {
+                        max = voteNum[i];
+                        isMax = 'max';
+                    }
+                }
+                if(voteNum[i]==max){
+                    result += `${candidate[i]} : ${voteNum[i]}표 <span class ='${isMax}'>1등</span></br>`;
+                }else{
+                    result += `${candidate[i]} : ${voteNum[i]}표 </br>`;
+                }
+                // 빽틱 활용하여, result에 누적하기
+            }
+
+            output.innerHTML = result;
+            
+        }
+
+    </script>
+</body>
+</html>

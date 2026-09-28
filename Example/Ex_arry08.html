@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>연습문제1</title>
+</head>
+<body>
+    <h1>배열+for문+if문 문제</h1>
+    <label for = "score">1번 점수 배열 입력: </label>
+    <input type="text" id="score"/>
+    <button onclick="calc()">결과 확인</button>
+    <p id="print"></p>
+    <script>
+        
+        let print = document.getElementById('print');
+        function calc(){
+            let sInput = document.getElementById('score').value;  // 값을 가져온 후
+            let scores = sInput.split(',');  // 가져온 값을, 콤마를 구분으로 쪼개서, 새로운 배열 생성
+            let result = '';  // 결과 값 누적하는 변수
+            for(let i = 0; i<scores.length; i++) {
+                if(scores[i]>=90) result += scores[i] + '점: A, '; 
+                else if(scores[i]>=80) result += scores[i] + '점 : B, ';
+                else if(scores[i]>=70) result += scores[i] + '점 : C, ';
+                else result += scores[i] + '점 : F, ';
+                console.log(`result : ${result}`);
+                // result : 90점: A, 70점 : C, 50점 : F, 100점: A, 
+                // 위에서 제일 우측에 있는 콤마를 삭제하려면, slice(0,-2) 하면 
+                // -1 에 있는 콤마를 삭제한다.
+            }
+            // slice(시작인덱스, 끝인덱스) : 시작 ~ 끝-1 까지 자른다.
+            // result.slice(0,-2) : 오른쪽에서 -1까지 잘린다.
+            // slice(0,-2) : 음수를 집어 넣으면, 우측 끝에서부터 자른다. (오른쪽 -> 왼쪽)
+            // slice() : 양수를 입력하면, 왼쪽에서부터 자른다 (왼쪽 -> 오른쪽) 
+            // result = result.slice(0,-1);
+            print.innerText = result.slice(0,-2);  //90점: A, 70점 : C, 100점: A, 53점 : F 
+                                                  // 음수를 적을때는, 해당부분 잘라내고 전체를 보여준다.
+            print.innerText = result.slice(0,2);  // 99점  (양수로 적을경우에는, 그 부분만 가져와서 반환)
+            print.innerText = result.slice(0,2);  // 99  (양수로 적을경우에는, 그 부분만 가져와서 반환)
+
+            // 결론
+            // 💡 slice() 개념 명확하게 정리
+            // JavaScript에서 slice(start, end)의 end 자리에 음수가 들어가면, "문자열의 전체 길이에서 그 음수만큼 뺀 위치(오른쪽 끝에서 몇 번째인가)"를 의미합니다.
+            // result.slice(0, -2):
+            // 의미: 0번 인덱스부터 "오른쪽 맨 끝에서 2글자를 뺀 위치"까지 잘라냅니다.
+            // 목적: 마지막에 붙은 불필요한 쉼표와 공백(', ' 2글자)을 깔끔하게 제거할 때 사용합니다.
+            // result.slice(0, 2):
+            // 의미: 0번 인덱스부터 2번 인덱스 직전(즉, 0과 1번 글자)까지 딱 앞에 2글자만 잘라내서 가져옵니다.
+        }
+    </script>
+
+</body>
+</html>

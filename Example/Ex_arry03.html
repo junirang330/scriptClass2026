@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습문제 03</title>
+    <style>
+        .high{
+            color : red;
+        }
+        .low{
+            color : blue;
+        }
+        table {
+               border-collapse: collapse;
+               border: 1px solid gray;     
+        }
+        table td{
+            /* list-style: none; */
+            /* border: 3px solid black; */
+        }
+    </style>
+</head>
+<body>
+    <h2>상품 가격 비교</h2>
+    <button onclick="calc()">상품 출력</button>
+    <div id = 'output'></div>
+    <script>
+        let output1 = document.getElementById('output');
+        
+        function calc(){
+            // 상품 이름과 가격 배열 생성 단계
+            let product = ['노트북','마우스','모니터','키보드'];
+            let price = [120000, 30000, 80000, 40000];
+            let result = '<table><tr><th>상품</th><th>가격</th><th>등급</th></tr>';
+            
+            console.log(output1);
+            console.log(result);
+            // 반복문을 통해, 50,000원 이상인 상품 구분하기
+            for(let i = 0; i<product.length; i++){
+                let status = price[i]>=50000?'고가':'저가';
+                let className = price[i]>=50000? 'high' : 'low';
+                // 빽틱을 이용하여, result에 추가하는 단계
+                result += `<tr><td>${product[i]}</td><td>${price[i]}원</td><td><span class = '${className}'>${status}</span></td></tr>`;
+               
+            }
+            // result.push('</table>');
+            result += '</table>'
+            output1.innerHTML = result;
+
+        }
+
+    </script>
+</body>
+</html>
