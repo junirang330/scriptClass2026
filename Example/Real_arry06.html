@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습문제06</title>
+    <style>
+        span{
+            color : red;
+        }
+    </style>
+</head>
+<body>
+    <h2>장바구니</h2>
+    <div id = "output"></div>
+
+    <script>
+        let output = document.getElementById('output'); 
+        let product = ['티셔츠','양말','모자'];
+        let unitPrice= [15000,3000,12000];
+        let count = [1,1,1];
+
+        // render() 함수
+        function render(){
+            let result = '';
+            // 이름/단가/수량 배열 생성단계
+            let total = 0;  // 총 합계 변수
+            
+            // 반복문을 통해서, 하나씩 그리기
+            for(let i = 0; i<product.length; i++){
+                let price = unitPrice[i]*count[i];  // 단가 x 수량 = 가격
+                result += `<div>${product[i]} (${unitPrice[i].toLocaleString()}원)
+                        x ${count[i]} = ${price==0?'<span>품절</span>':price.toLocaleString()} 
+                        <button onclick = 'minus(${i})'>-</button> 
+                        <button onclick = 'plus(${i})'>+</button> </div>`;
+                
+                total += price;       
+            }
+                
+            result += `총 합계 : ${total.toLocaleString()}원`;
+            output.innerHTML = result;
+        }
+
+        // 마이너스 함수
+        function minus(i){
+            // 수량이 0미만으로 내려가지 않도록
+            if(count[i]>0){
+                count[i]--;
+            }else{
+                alert('재고수량 0미만으로는 선택 불가');
+            }
+            console.log(count);
+            render();
+        }
+
+        // 플러스 함수
+        function plus(i){
+            count[i]++;
+            render();
+        }
+
+        // render()함수 호출하여 그리기
+        render();
+    </script>
+    
+</body>
+</html>

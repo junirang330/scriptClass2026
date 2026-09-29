@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>실습예제01</title>
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 300px;
+            height : 300px;
+            text-align: center;
+            border: 1px solid lightgray;
+        }
+        td{
+            border: 1px solid gray;
+        }
+    </style>
+</head>
+<body>
+    <h2>자바스크립트 2차원 배열 실습 예제</h2>
+    <div class = "container">
+        <h3>1. 좌석배치(5X5)</h3>
+        <div id = "seatOut"></div>
+    </div>
+    <script>
+        let seatOut = document.getElementById('seatOut');
+        const arr = Array.from(Array(5),()=>new Array(5));
+        let num = 1;
+        
+        function render(){
+            let result = '<table>';
+            for(let i = 0; i<arr.length; i++){
+                result += `<tr>`;
+                for(let j = 0; j<arr[i].length; j++){
+                    // console.log(num);
+                    arr[i][j] = num;
+                    result += `<td>${arr[i][j]}</td>`;
+                    num ++;
+                }
+                result += `</tr>`;
+                console.log(result);
+            }
+            result += `</table>`;
+            seatOut.innerHTML = result;
+        }
+        render();
+    </script>
+</body>
+</html>

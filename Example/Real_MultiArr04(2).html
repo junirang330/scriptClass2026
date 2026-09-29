@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성적프로그램 2번</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <h3>성적 분석 프로그램</h3>
+    <div id="output"></div>
+
+    <script>
+        let names = ['홍길동','개나리','진달래'];
+        let subjects = ['국어','영어','수학'];
+        let scores = [
+            [85,90,78],  // 홍길동
+            [92,88,95],  // 개나리
+            [76,85,83]   // 진달래
+        ];
+        let output = document.getElementById('output');
+
+        // render() 함수로 그리기
+        function render(){
+            let result = '';
+            let subjectSum = 0;  // 과목당 총점
+            let subjectCnt = 0;  // 과목 개수
+            let subjectAvg = 0;  // 과목당 평균
+            
+            // map으로 해결해보기
+            let mapping = scores.map((val, idx)=>{
+
+                 return `(${val})</br>`;
+                // console.log(val);
+                // return val.map((vals) => {
+                //     vals = `${val}</br>`;
+                //     return vals;
+                // });
+                
+                // console.log(val);
+                // console.log(index);
+                // let studentScore = '';
+                // subjectSum = value; 
+                // return 
+            });
+            console.log(mapping);
+            result += mapping;
+            output.innerHTML = result;
+        }
+        // 총점과 평균 단계
+
+
+        // 과목별 평균 단계
+
+        // 최고 점수 단계
+        render();
+    </script>
+</body>
+</html>

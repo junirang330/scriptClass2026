@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>성적분석 프로그램</title>
+    <style>
+        body{
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h2>성적 분석 프로그램</h2>
+    <div id="output"></div>
+    <script>
+        let output = document.getElementById('output');
+        let result = '';  // 결과 누적 변수
+        // 배열 생성단계
+        let names = ['홍길동','개나리','진달래'];
+        let subjects = ['국어','영어','수학'];
+        let scores = [
+            [85, 90, 78],  // 홍길동
+            [92, 88, 95],  // 개나리
+            [76, 85, 83]  // 진달래
+        ]
+
+        // 렌더 함수로 그리기
+        function render(){  
+            result += `[학생별 총점과 평균]</br>`;
+            let total = 0;
+            let average = 0;  // 학생당 평균 변수
+            let count = 0;  // 숫자 세는 변수
+            let max = 0;
+            let tmp = '';  // 최고점수 학생 변수
+            let idx = -1;  // 최고 점수 학생 인덱스 위치 변수
+            let subjectAvg = 0;  // 과목별 평균 변수
+            let subjectTotal = 0;  // 과목당 합계 변수
+
+            for(let i = 0; i<scores.length; i++){
+                total = 0;
+                for(let j = 0; j<scores.length; j++){
+                    total += scores[i][j];
+                    count ++;
+                    if(scores[i][j]>max) {
+                        max = scores[i][j];
+                        // console.log(idx);
+                        idx = i;
+                        tmp = names[idx];
+                        console.log(tmp);
+                    }
+                }
+                average = total / count;
+                result += `${names[i]} 총점 : ${total}, 평균 : ${average.toFixed(1)}</br>`;
+            }
+
+            // 과목별 평균 계산
+            result += `<br>[과목별 평균]</br>`;
+            for(let j = 0; j<scores.length; j++){
+                subjectTotal = 0;
+                count = 0;
+                for(let i = 0; i<scores[j].length; i++){
+                    subjectTotal += scores[i][j];
+                    console.log(subjectTotal);
+                    count ++;
+                    console.log(count);
+                }
+                subjectAvg = subjectTotal / count;
+                result += `${subjects[j]} 평균: ${subjectAvg.toFixed(1)}</br>`;
+            }
+
+
+            // 최고 점수 계산
+            result += `<br>[최고 점수 학생]</br>`;
+            result += `${tmp} (${max}점)`;
+            
+            output.innerHTML = result;
+        }
+        render();  // 렌더 함수 호출
+    </script>
+
+</body>
+</html>

@@ -19,76 +19,50 @@
     <div id = "output"></div>
     
     <script>
-        let output = document.getElementById('output');
+        // 상품, 재고자료를 배열로 생성
+        //                0       1        2
         let product = ['노트북','마우스','키보드'];
-        let amount = [3, 3, 2];
-        let result = '';
+        let stock = [3, 3, 2];
+        let output = document.getElementById('output');
 
-        let total = 8;
-        let count = 0;
-
+        // render() 함수를 생성
+        // render() 함수안에 HTML 화면그리는 기능 작성할 것
         function render(){
+            let result = '';  // 태그들을 저장하는 변수
+            let total = 0;  // 총개수 구하는 변수
+            // 반복문을 이용하여 product, stock에 HTML을 그린다.
             for(let i = 0; i<product.length; i++){
-                result += `${product[i]} : <span id = "countNum">${amount[i]}</span><button onclick="minus()">-</button><button onclick="plus()">+</button></br>`;
-                output.innerHTML = result;
-                count = amount[i];
-                // console.log(count);
+                result += `<div class = 'row'>${product[i]} :
+                          <span>${stock[i]}</span>
+                          <button onclick="minus(${i})">-</button>  
+                          <button onclick="plus(${i})">+</button></div>`;  // 매개변수 ${i}★★★★★★★
+                total += stock[i];
             }
-            result += `총 재고 : ${total}`;
+            result += `<div>총 재고 : ${total}개 </div>`;
             output.innerHTML = result;
         }
-        function minus(){
-            // 마이너스 버튼 클릭은 1까지만 감소 가능
-            if(count>1){
-                count --;
-                countNum.innerText = count;
-                total --;
+
+        function minus(i){  // ★★★★★★★  i : 매개변수
+            // 재고수량이 0보다 클때만 마이너스 된다.
+            if(stock[i]>0){
+                stock[i]--;
             }else{
-                alert('최소수량 1개까지만 가능')
+                alert('재고수량 0미만으로는 선택 불가');
             }
+            console.log(stock);  // 메모리에서는 마이너스 계산됨 (단, 화면은 업데이트가 안됨)
+            // html 화면을 다시 글야 한다.
+            render();
+           
         }
-        function plus(){
+        function plus(i){
             // 플러스 버튼은 최대 제한 없음
-            count ++;
-            countNum.innerText = count; 
-            total ++;
+            stock[i]++;
+            render();
         }
 
+        // 처음 스크립트를 실행하면 화면을 그려야하기 때문에, 반드시 render() 호출
+        // render : 다시 그려라
         render();
-
-
-                // 
-                // let countNum = document.getElementById('countNum');
-                // function minus(){
-                //     // 마이너스 버튼 클릭은 1까지만 감소 가능
-                //     // count = 3; // 현재 수량
-                //     if(count>1){
-                //         count --;
-                //         countNum.innerText = count;
-                //         total --;
-                //     }else{
-                //         alert('최소수량 1개까지만 가능')
-                //     }
-                // }
-    
-                // function plus(){
-                //     // 플러스 버튼은 최대 제한 없음
-                //     count ++;
-                //     countNum.innerText = count; 
-                //     total ++;
-    
-                    
-                // }
-    
-                // result2 = `총 재고: ${total}`;
-    
-    
-        
-    
-
-
-
-
     </script>
 </body>
 </html>
