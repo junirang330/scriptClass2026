@@ -1,0 +1,78 @@
+@charset 'utf-8';
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    /* padding: 20px; */
+    background-color: rgb(241, 240, 240);
+}
+.container{
+    /* margin-top: 30px; */
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    width: 400px;
+    margin: 30px auto;
+}
+table{
+    border-collapse: collapse;
+    margin : 0 auto;
+    width : 350px;
+    height: 300px;
+    background-color: white;
+
+}
+td{
+    text-align: center;
+    width : 50px;
+    height: 50px;
+}
+/* head 부분 CSS */
+.head{
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+/* 버튼 CSS */
+button{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    color: black;
+    font-weight: bold;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+/* span CSS */
+th{
+    font-weight: bold;
+    color: rgb(102, 101, 101);
+}
+.sunday{
+    color: red;
+}
+.saterday{
+    color : blue;
+}
+/* td css */
+td{
+    font-size: 13px;
+    font-weight: bold;
+}
+
+#today{
+    border-radius: 50%;
+    /* width: 50px; */
+    background-color: rgb(61, 133, 13);
+    cursor: pointer;
+    color: white;
+}
+#todayBefore{
+    background-color: gray;
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코어 기초 연습 문제</title>
+</head>
+<body>
+    <button onclick = "showYear()">1. 현재 년도 출력</button>
+    <button onclick = "showDay()">2. 현재 요일 출력</button>
+    <button onclick = "showTime()">3. 현재 시간 출력</button>
+    <button onclick = "showDates()">4. 하루 후, 일주일 후 날짜 출력</button>
+    <button onclick = "showWeekend()">5. 요일에 따른 메시지 출력</button>
+    <p id="output"></p>
+    <script>
+        let output = document.getElementById('output');
+       
+        let today = new Date();
+        let weekDay = ['일','월','화','수','목','금','토']
+        // 1. 현재 연도 출력
+        // 문제 : 현재 날짜를 Date객체로 가져와서 콘솔에 "올해는 2026년입니다."
+        // 형식으로 출력하시오
+        function showYear(){
+             let result = '';
+            let year = today.getFullYear();
+            result += `올해는 ${year}년입니다.`;
+            output.innerText = result;
+        }
+        
+        // 2. 현재 요일 출력
+        // 문제 : 현재 날짜를 이용하여, 오늘 요일을 한굴로 출력하세요
+        // 예 : "오늘은 화요일입니다."
+        function showDay(){
+            let result = '';
+            let week = today.getDay();
+            result += `오늘은 ${weekDay[week]}요일입니다.`;
+            output.innerText = result;
+        }
+        
+        // 3. 현재 시간 출력
+        // 문제 : 현재 시간을 시:분:초 형식으로 출력하세요
+        // 예 : "현재 시간 : 14:35:20"
+        function showTime(){
+            let result = '';
+            let hour = today.getHours();
+            let minutes = today.getMinutes();
+            let seconds = today.getSeconds();
+            result += `현재 시간 : ${hour}:${minutes}:${seconds}`;
+            output.innerText = result;
+        }
+
+        // 4. 하루 후, 일주일 후 날짜 출력
+        // 문제 : 오늘 날짜를 기준으로 하루 후와 일주일 후 날짜를 출력하세요 
+        function showDates(){
+            let result = '';
+            // 내일
+            let tomorrow = new Date(today);  // ★★★
+            tomorrow.setDate(today.getDate()+1);  // ★★★
+            console.log(tomorrow);
+            // 1주일 후
+            let nextWeek = new Date(today);  // ★★★
+            nextWeek.setDate(today.getDate()+7);   // ★★★
+            console.log(nextWeek);
+            // 출력
+            result += `하루 후 : ${tomorrow.toLocaleDateString()}</br>
+                       일주일 후 : ${nextWeek.toLocaleDateString()}`;
+            output.innerHTML = result;
+
+            // 아래는 내가 푼 방식
+            // let result = '';
+            // console.log(typeof today);
+            // let tmp = today.getDate()+1;
+            // console.log(tmp);
+            // today.setDate(tmp);
+            // let todayAfter1 = today.toLocaleDateString();
+            // tmp = today.getDate()+6;
+            // today.setDate(tmp);
+            // let todayAfter7 = today.toLocaleDateString();
+            // result += `하루 후 : ${todayAfter1}  /  일주일 후 : ${todayAfter7}`;
+            // output.innerText = result;
+            // today = new Date();
+        }
+
+        // 5. 요일에 따른 메시지 출력
+        // 문제 : 오늘 요일이 주말(토.일) 이면 "주말이에요!"
+        // 평일이면, "열심히 일하는 날!" 을 출력하세요
+        function showWeekend(){
+            let result = '';
+            let week = today.getDay();
+            result += `${week==0||week==6 ? '주말이에요!': '열심히 일하는 날!'}` ;
+            console.log(week);
+            result += `올해는 ${weekDay[week]}년입니다.`;
+            output.innerHTML = result;
+        }
+
+
+    </script>
+    
+</body>
+</html>
