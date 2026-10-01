@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오브젝트 심화문제</title>
+    <style>
+    /* 전체 기본 설정 및 폰트 */
+    body {
+        font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+        width: 700px;
+        margin: 40px auto;
+        color: #333;
+    }
+
+    /* 제목 스타일 */
+    h2 {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #222;
+    }
+
+    /* 테이블 스타일 */
+    #cartTable {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: center;
+    }
+
+    /* 테이블 헤더 (어두운 배경) */
+    #cartTable thead th {
+        background-color: #4a515a;
+        color: #ffffff;
+        padding: 12px 10px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    /* 테이블 행 스타일 */
+    #cartTable tbody tr {
+        border-bottom: 1px solid #eef0f2;
+    }
+
+    #cartTable tbody td {
+        padding: 16px 10px;
+        font-size: 14px;
+    }
+
+    /* 버튼 영역 스타일 */
+    .btn {
+        display: flex;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    /* 공통 버튼 스타일 */
+    .btn button {
+        width: 28px;
+        height: 28px;
+        border: 1px solid #dcdfe6;
+        background-color: #f8f9fa;
+        color: #555;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+
+    /* 버튼 마우스 호버 효과 */
+    .btn button:hover {
+        background-color: #e2e6ea;
+        border-color: #adb5bd;
+    }
+
+    /* 총 금액 영역 스타일 */
+    #total {
+        text-align: right;
+        margin-top: 25px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #111;
+    }
+</style>
+</head>
+<body>
+    <h2>장바구니</h2>
+        <table id ="cartTable">
+            <thead>
+                <tr>
+                    <th>상품명</th>
+                    <th>가격</th>
+                    <th>수량</th>
+                    <th>합계</th>
+                    <th>조작</th>
+                </tr>
+            </thead>
+        <tbody id="cartBody"></tbody>
+    </table>
+    <div id="total">총 금액: 0원</div>
+
+    <script>
+        let cartList = [
+            { id: 1, name: '노트북', price: 1200000, quantity: 1 },
+            { id: 2, name: '마우스', price: 20000, quantity: 2 },
+            { id: 3, name: '키보드', price: 50000, quantity: 1 },
+        ];
+        let cartBody = document.getElementById('cartBody');
+        let total = document.getElementById('total');
+        function render(){
+            let result = '';  // 출력할 변수
+            let sum = 0;  // 합계 변수
+            let totalPrice = 0;  // 총 금액 변수
+            result += '' ;
+            // 반복문으로 행을 그리기
+            for(let i = 0; i<cartList.length; i++){
+                sum = cartList[i].price*cartList[i].quantity;
+                console.log(sum);
+                result += `<tr class = "rowClass"><td>${cartList[i].name}</td>
+                    <td>${cartList[i].price.toLocaleString()}원</td>
+                    <td>${cartList[i].quantity}</td>
+                    <td>${sum.toLocaleString()}원</td>`;
+
+                // 버튼 그리는 곳
+                result += `<td class = "btn">
+                    <button onclick = "plus(${i})">+</button>
+                    <button onclick = "minus(${i})">-</button>
+                    <button onclick = "deleteL(${i})">X</button>
+                    </td></tr>`;
+                // 총금액 계산
+                totalPrice += sum;
+            }
+            total.innerText = `총 금액 : ${totalPrice.toLocaleString()}원`;
+            cartBody.innerHTML = result;
+        }
+
+        // 플러스 함수
+        function plus(i){
+            cartList[i].quantity == 10 ? alert("더 이상 증가 불가능") : cartList[i].quantity ++;
+            render();
+        }
+        // 마이너스 함수
+        function minus(i){
+            cartList[i].quantity == 1 ? alert("수량은 최소 1개 이상이어야 합니다") :  cartList[i].quantity --;
+            render();
+        }
+        //삭제 함수
+        function deleteL(i){
+           cartList.splice(i,1);
+           render();
+        }
+        render();
+    </script>
+    
+</body>
+</html>

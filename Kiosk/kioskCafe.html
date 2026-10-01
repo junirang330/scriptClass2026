@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>키오스크</title>
+    <link rel="stylesheet" href="kioskCafe.css">
+</head>
+<body>
+    <div id="container"></div>
+    
+    <script>
+        let menus = [
+            { id: 0, name: '아메리카노', type: 'HOT', price: 1000,quantity:0 },
+            { id:1, name: '아메리카노', type: 'ICE', price: 1300,quantity:0 },
+            { id: 2, name: '바닐라라떼', type: 'HOT', price: 2500,quantity:0 },
+            { id: 3, name: '바닐라라떼', type: 'ICE', price: 2800,quantity:0 },
+            { id: 4, name: '연유라떼', type: 'HOT', price: 2500,quantity:0 },
+            { id: 5, name: '연유라떼', type: 'ICE', price: 2800,quantity:0 },
+            { id: 6, name: '카라멜마끼아또', type: 'HOT', price: 2800,quantity:0 },
+            { id: 7, name: '카라멜마끼아또', type: 'ICE', price: 3000,quantity:0 },
+            { id: 8, name: '카페모카', type: 'HOT', price: 3000,quantity:0 },
+            { id: 9, name: '카페모카', type: 'ICE', price: 3300,quantity:0 },
+            { id: 10, name: '딥카페라테', type: 'HOT', price: 3400,quantity:0 },
+            { id: 11, name: '딥카페라테', type: 'ICE', price: 3700,quantity:0 },
+        ];
+        let container = document.getElementById('container');
+        
+        function render(){
+            let result = '';
+            // <!-- 상단(메뉴판 + 주문내역) -->
+            result += `<div class="upper">
+                <div class="menu">
+                <h2>원하시는 음료를 선택해 주세요</h2>
+                <h4>Pleas choose the drink you want</h4>
+                <span class="menuText">MENU</span>
+                <ul id = "menuTables">`;
+
+            //반복문으로 그리기
+            for(let i = 0; i<menus.length; i++){
+                result += `<li onclick = "add_orders(${i})">`;
+                i % 2 == 0 ? 
+                result += `<img src="images_kiosk/hot_coffee.png"/></br>` : 
+                result += `<img src="images_kiosk/ice_coffee.png"/></br>`;
+
+                result +=  
+                    `<p class = "menu_type">${menus[i].type}</p>
+                    <p class = "menu_name">${menus[i].name}</p>
+                    <p class = "menu_price">${menus[i].price}</p>
+                    </li>`;
+            } 
+            
+
+            result += `</ul></div>
+                <div class ="order">
+                <h3>주문내역</h3>
+                <button onclick = "reset()">초기화</button>
+                <div class="orderBox" id = "Box">`;
+                    
+            // 주문내역 반복문
+            // let run = true;
+            let tmp = 0;  
+            let totalPrice = 0; // 총 주문금액 변수
+            for(let i = 0; i<menus.length; i++){
+                let price = 0;
+                
+                price = menus[i].price*menus[i].quantity;  
+                menus[i].quantity !=0 ? 
+                    result += `<div class = "putIn">
+                        <span class="order_menuName">${menus[i].name}</span>
+                        (<span class="order_menuType">${menus[i].type}</span>&nbsp;)
+                        <span class="order_menuQuantity">${menus[i].quantity}개</span>, 
+                        ${price.toLocaleString()}원
+                        </div>
+                        <div class= "btn">
+                        <button onclick="minus(${i})">-</button>
+                        <button onclick="plus(${i})">+</button>
+                        <button onclick="deletes(${i})">X</button>
+                        </div> ` : ''; 
+                console.log(`price : ${price}`);
+                tmp += price;
+                // menus[i].quantity = 0;
+            }
+            totalPrice += tmp;
+            result += `</div></div></div>
+                <div class = "bottom">
+                <div class = "total">총 주문금액 : ${totalPrice.toLocaleString()}원</div>
+                <span class = "divide">｜</span>
+                <span class = "cashPay">현금결제</span>
+                </div>`;
+            
+            container.innerHTML = result;
+
+        }    
+
+        // 메뉴 버튼 li 눌렀을때, 함수
+        function add_orders(i){
+            menus[i].quantity++;
+            
+            render();
+        }
+
+        // 마이너스 함수
+        function minus(i){
+            menus[i].quantity == 1 ? alert("수량은 최소 1개 이상이어야 합니다"): menus[i].quantity--;
+            render();
+        }
+        // 플러스 함수
+        function plus(i){
+            menus[i].quantity++;
+            render();
+        }
+        // 삭제 함수
+        function deletes(i){
+            menus[i].quantity = 0;
+            render();
+        }
+        function reset(){
+            for(let i = 0; i<menus.length; i++) {
+                menus[i].quantity = 0;
+            }
+            render();
+        }
+        render();
+
+    </script>
+</body>
+</html>

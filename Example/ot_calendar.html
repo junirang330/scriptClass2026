@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>달력</title>
+</head>
+<body>
+    <!-- 1. html -->
+    <!-- 2. 배열의 달력값만 저장하는 함수 -->
+    <!-- 3. 화면에 출력하는 함수 -->
+    <!-- 달력 HTML 구조  -->
+     <div id="container">
+        <div id="date-wrap">
+            <button id="previousButton" onclick="previousButton()">&lt;</button>
+            <!-- 년/월 / 2026년 10월 -->
+             <div id="main_date"></div>
+            <button id="nextButton" onclick="nextButton()">&gt;</button>
+        </div>
+        <table id="date-week">
+            <thead>
+                <th>SUN</th>
+                <th>MON</th>
+                <th>TUE</th>
+                <th>WED</th>
+                <th>THU</th>
+                <th>FRI</th>
+                <th>SAT</th>
+            </thead>
+        </table>
+        <!-- 달력 날짜 값 입력 -->
+         <div id="displayTable"></div>
+     </div>
+
+     <script>
+        let yearMonth = document.getElementById('main_date');
+        let displayTable = document.getElementById('displayTable');
+        let today = new Date(); //오늘날짜 
+
+        // 2차원 배열 지정
+        let arr = Array.from(Array(6), () => new Array(7));
+
+        // 달력의 배앨에 값을 저장하는 함수 작성
+         function calendar(){
+            let year = today.getFullYear();//현재년도
+            let month = today.getMonth(); // 현재월
+            // 시작일의 요일 몇번째 인지 찾기
+            // 이달의 마지막 일자 28,30,31 찾기
+            let lastDate = new Date(year, month+1, 0);
+            let lastDay = lastDate.getDate();// 마지막 일자 => 31
+            let startDate = new Date(year,month,1);// 월의 첫 일자
+            let startDay = startDate.getDate();// 월의 일자 => 1
+            let startWeek = startDate.getDay();// 요일이 숫자(0-6),4(목)
+            // 일 월 화 수 목 금 토
+            //             1  2  3  => 0
+            //                  31 
+            let row =0; // arr[row][startWeek]
+
+            // 배열값을 빈값으로 초기화
+            for(let i=0; i<arr.length; i++){
+                for(let j=0; j<arr[i].length; j++){
+                    arr[i][j] ='';
+                }
+            }
+
+            // 달력배열에 실제 값을 채우는 코드
+            // startDay=1 ~ lastDay=31
+            for(let i=startDay; i<=lastDay; i++){
+                arr[row][startWeek] = i; // arr[0][4]=1
+                // 7일이되면 줄 바꿈
+                if(startWeek < 6){ // 아직 7일 지나지 않은 상태
+                    startWeek++;
+                }else{ // 7일되어 줄 바꿈
+                    row++;
+                    // startWeek = 0으로 초기화가 되어야 맨 왼쪽 첫번째 칸부터 저장된
+                    startWeek=0;
+                }
+            }
+
+            // 현재 배열에 값이 제대로 저장되는지 콘솔로 확인
+            console.log(`${year}년 ${month+1}월 달력 데이터: `,arr);
+        }
+
+        calendar();
+        // let year02 = 2025;
+        // let mon = 4;//2025-5월
+        // // 2025-4(5)-0 이라는 의미는 바로 2025-5-0의 이전일 의미
+        // // 2025-4-30
+        // let last = new Date(year02,mon+1,0);//2025. 5. 31.
+        // let day02 = last.getDate();
+        // console.log(day02);//31
+        // console.log(last.toLocaleDateString()); // 2025. 4. 30.
+        
+        // 화면에 출력하는 함수
+        function display(){
+             calendar();
+
+             let tb="<table class='cal_table'>";
+             //가로줄
+             for(let i=0; i<arr.length; i++){
+                tb += "<tr>";
+                // 세로줄
+                for(let j=0; j<arr[i].length; j++){
+                    tb += "<td>"+ arr[i][j]+"</td>";
+                }
+                tb += "</tr>";
+             }   
+             tb += "</table>";
+             
+             // 상단 년월일 입력
+             let yearmonth = today.getFullYear() + '년' +  (today.getMonth() + 1 ) + '월';
+             yearMonth.innerHTML = yearmonth;
+             displayTable.innerHTML= tb;
+        }
+
+        display();
+
+        //이전 버튼 함수
+        function previousButton(){
+            today = new Date(today.getFullYear(),today.getMonth()-1,1);
+            display();
+        }
+        //이후 버튼 함수
+        function nextButton(){
+            today = new Date(today.getFullYear(),today.getMonth()+1,1);
+            display();
+        }
+
+     </script>
+</body>
+</html>

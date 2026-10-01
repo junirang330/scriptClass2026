@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오브젝트 기초연습문제</title>
+</head>
+<body>
+    <p id="print"></p>
+    <script>
+        let print = document.getElementById('print');
+        let result = '';
+        // 문제 1
+        // 학생 객체 Student를 만들고, 
+        // 이름(name), 나이(age), 전공(major)을
+        // 속성으로 지정한 뒤 console.log()로 출력하세요
+        let student = {
+            name : '김길동',
+            age : 28,
+            major : '컴공'
+        }
+        console.log('학생정보 : ', student);
+
+        // 문제2
+        // 자동차 객체 car를 만들고, 브랜드(brand), 색상(color), 가격(price)을 저장하세요.
+        // 이후 색상을 "검정색"으로 바꾸고, 가격을 3000으로 수정한 뒤 console.log()로 출력하세요.
+        let car = {
+            brand: "Hyundai",
+            color: "흰색",
+            price: 2500
+        };
+        console.log('자동차 정보 : ', car);
+        
+        // 객체 접근하는 방법 : 객체이름.속성이름
+        car.color = '검정색';
+        car.price = 3000;
+        console.log('자동차 정보 : ', car);
+
+        // 문제3
+        // 상품 객체 item1, item2를 만들고 각각 
+        // 이름(name), 가격(price), 수량(quantity)를 저장하세요.
+        // 그 후 배열 cart에 넣고, 장바구니 총 금액을 
+        // console.log()로 구하세요. 
+        let item1 = {
+            name: "노트북",
+            price: 1000,
+            quantity: 1
+        };
+        let item2 = {
+            name: "마우스",
+            price: 50,
+            quantity: 2
+        };
+        let cart = [item1, item2];  // 오브젝트 배열
+        // 오브젝트 배열을 일명 더미데이터라 부른다.
+        // 오브젝트 배열에서, 각 데이터 마다 식별자가 필요하다.
+        // 식별자는 기본 id:0, id:1, id:3 ... 이렇게 지정한다.
+        // 일명 데이터베이스의 PK(Primary Key)와 같은 역할을 한다.
+        let cart02 = [
+            {id:0, name: "노트북", price: 1000, quantity: 1},
+            {id:1, name: "마우스", price: 50, quantity: 2}
+        ];
+        // 총금액 구하는 방법
+        let sum = 0;
+        for(let i = 0; i<cart02.length; i++){
+            console.log(cart02[i].price);
+            sum += cart02[i].price*cart02[i].quantity; 
+        }
+        console.log('총금액 계산 :', sum);
+    
+        // 문제4
+        let student1 = {
+            name: '홍길동',
+            kor: 90,
+            eng: 80,
+            math: 85
+        };
+        let student2 = {
+            name: '성춘향',
+            kor: 95,
+            eng: 88,
+            math: 92
+        };
+        let student3 = {
+            name: '이몽룡',
+            kor: 70,
+            eng: 75,
+            math: 80
+        };
+        let students = [
+            {id: 0, name: '홍길동', kor: 90, eng: 80, math: 85 },
+            {id: 1,  name: '성춘향', kor: 95, eng: 88, math: 92 },
+            {id: 2, name: '이몽룡', kor: 70, eng: 75, math: 80  }
+        ];
+        let sum04 = 0;  // 학생 개인당 평균 점수 변수
+        // let korSum = 0;  // 국어 합계 변수\
+        // let engSum = 0;  // 영어 합계 변수\
+        // let mathSum = 0;  // 수학 합계 변수\
+        let count = 0;
+        let avg = 0; // 평균 변수
+    
+          
+        for(let i = 0; i<students.length; i++){
+            sum04 += students[i].kor + students[i].eng + students[i].math;
+            console.log(sum04);
+            count = students.length;
+            avg = sum04/count;
+            console.log(avg);
+            result += students[i].name + '의 평균 점수 : ' + avg.toFixed(2) ; 
+            sum04 = 0;
+            avg = 0;
+        }
+        print.innerHTML = result;
+    </script>
+
+</body>
+</html>

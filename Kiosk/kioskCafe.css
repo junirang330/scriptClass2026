@@ -1,0 +1,255 @@
+@charset 'utf-8';
+
+/* 초기화 */
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Malgun Gothic', '맑은 고딕', sans-serif;
+}
+
+body {
+    background-color: #f8f8f8;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* 키오스크 전체 메인 틀 */
+#container {
+    width: 950px;
+    background-color: #fcfbf7;
+    border: 3px solid #0f3d23;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* 상단 메인 영역 */
+.upper {
+    display: flex;
+    min-height: 600px;
+}
+
+/* === [왼쪽] 메뉴판 영역 === */
+.menu {
+    width: 68%;
+    padding: 25px 20px;
+}
+
+.menu h2 {
+    font-size: 20px;
+    color: #1a1a1a;
+    font-weight: bold;
+}
+
+.menu h4 {
+    font-size: 13px;
+    color: #777;
+    font-weight: normal;
+    margin-top: 4px;
+    margin-bottom: 15px;
+}
+
+.menuText {
+    display: inline-block;
+    background-color: #e2e8e4;
+    color: #0f3d23;
+    padding: 4px 12px;
+    font-size: 13px;
+    font-weight: bold;
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+/* 메뉴 그리드 */
+#menuTables {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* 주황색 메뉴 카드 */
+#menuTables li {
+    width: calc(25% - 12px);
+    background-color: #f17231;
+    border-radius: 12px;
+    padding: 16px 6px;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.1s ease;
+}
+
+#menuTables li:hover {
+    transform: translateY(-3px);
+}
+
+/* 동그란 흰색 원 안의 커피 아이콘 */
+#menuTables li img {
+    width: 50px;
+    height: 50px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+    object-fit: contain;
+    margin-bottom: 6px;
+}
+
+/* 메뉴 세부 텍스트 */
+.menu_type {
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+}
+
+.menu_name {
+    font-size: 13px;
+    font-weight: bold;
+    margin: 2px 0 8px 0;
+}
+
+.menu_price {
+    display: inline-block;
+    background-color: #ffffff;
+    color: #111111;
+    font-size: 12px;
+    font-weight: bold;
+    font-style: italic;
+    padding: 2px 14px;
+    border-radius: 12px;
+}
+
+/* === [오른쪽] 주문내역 영역 === */
+.order {
+    width: 32%;
+    background-color: #0f3d23;
+    color: white;
+    padding: 25px 18px;
+    display: flex;
+    flex-direction: column;
+    position: relative; /* 우측 상단 버튼 배치를 위한 기준점 */
+}
+
+/* 주문내역 제목 */
+.order h3 {
+    font-size: 18px;
+    margin-bottom: 18px;
+    height: 32px;
+    line-height: 32px;
+}
+
+/* ✨ 주문내역 우측 상단 정사각형 초기화 버튼 ✨ */
+.order > button {
+    position: absolute;
+    top: 25px;
+    right: 18px;
+    width: 52px;
+    height: 32px;
+    background-color: #ffffff;
+    color: #0f3d23;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.order > button:hover {
+    background-color: #e2e8e4;
+    transform: scale(1.03);
+}
+
+/* 주문내역 안쪽 짙은 녹색 박스 */
+.orderBox {
+    width: 100%;
+    flex-grow: 1;
+    background-color: #072213;
+    border-radius: 8px;
+    padding: 12px 15px;
+    overflow-y: auto;
+    max-height: 550px;
+}
+
+/* 주문 항목 */
+.putIn {
+    font-size: 12px;
+    text-align: right;
+    color: #ffffff;
+    margin-top: 15px;
+    line-height: 1.5;
+}
+
+.order_menuName {
+    font-weight: bold;
+}
+
+.order_menuType {
+    font-size: 11px;
+    color: #aed581;
+}
+
+.order_menuQuantity {
+    font-weight: bold;
+    color: #ffd54f;
+}
+
+/* 수량조절/삭제 버튼 그룹 */
+.btn {
+    display: flex;
+    justify-content: flex-end;
+    gap: 4px;
+    margin-top: 6px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.btn button {
+    width: 22px;
+    height: 22px;
+    border: none;
+    background-color: #dcdcdc;
+    color: #333;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 2px;
+}
+
+.btn button:hover {
+    background-color: #ffffff;
+}
+
+/* === [하단] 결제 바 영역 === */
+.bottom {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-top: 2px solid #0f3d23;
+    padding: 15px 30px;
+    background-color: #fcfbf7;
+    gap: 15px;
+}
+
+.total {
+    font-size: 16px;
+    font-weight: bold;
+    color: #222;
+}
+
+.divide {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.cashPay {
+    background-color: #c86e65;
+    color: white;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+}

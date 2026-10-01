@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>querySelector 연습</title>
+    <style>
+        ul{
+            list-style: none;
+        }
+        li{
+            cursor : pointer;
+            background-color: brown;
+            border: 1px solid black;
+            color : white;
+        }
+    </style>
+</head>
+<body>
+    <div class="orderlist">1. 아메리카노 - 4,000원</div>
+    <div class="orderlist">2. 카페라떼 - 4,500원</div>
+    <div class="orderlist">3. 치즈케이크 - 6,000원</div>
+    
+    <button class="pay">결제하기 버튼</button>
+    <ul>
+        <li onclick = "pay()">aaaa</li>
+        <li onclick = "pay01()">bbbb</li>
+    </ul>
+    <script>
+        // DOM 객체 : HTML 문서에 접근하는 방법
+        // documnet.querySelector('');
+        //    ==> 조건에 만족하는 첫 번째, 단 하나의 요소에만 접근한다.
+        //    ==> id, class 모두 접근할 수 있다.
+        let order = document.querySelector('.orderlist');
+        console.log(order);
+        order.style.color = 'blue';  // CSS 자바에서도 바꿀 수 있다. 
+        
+        // documnet.querySelectorAll('');
+        //     ==> 조건에 만족하는 모든 요소에 접근할 수 있다.
+        //     ==> 장바구니를 통째로 접근한다.
+        let orderList = document.querySelectorAll('.orderlist');
+        console.log(orderList);
+        // 결과물 : [div.orderlist, div.orderlist, div.orderlist]
+        
+        
+        function pay(){
+            orderList[1].style.color = 'red';
+            
+        }
+        function pay01(){
+            orderList[2].style.color = 'green';
+        }
+    </script>
+</body>
+</html>
