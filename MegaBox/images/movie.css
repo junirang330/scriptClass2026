@@ -1,0 +1,54 @@
+@charset 'utf-8';
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    padding: 30px;
+    font-family: sans-serif;
+    font-size: 16px;
+    width: 1200px;
+}
+section{
+    width: 700px;
+    border: 1px solid black;
+    display:flex;
+}
+#table{
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.cell{
+    border: 1px solid black;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    align-content: center;
+    
+}
+.right_section{
+    width: 300px;
+    
+
+}
+.select_head{
+    display: flex;
+    justify-content: space-between;
+}
+img{
+    width: 80px;
+}
+.movieDetail{
+    display: flex;
+    justify-content: space-around;
+    width: 300px;
+}
+.theaterInfo{
+    width: 200px;
+}
+.poster_img{
+    width: 80px;
+}

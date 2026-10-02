@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마우스 이벤트, 클릭</title>
+    <style>
+        body{
+            font-family: sans-serif;
+            font-size: 30px;
+        }
+        a{
+            text-decoration: none;
+            color: #222;
+            padding-bottom: 12px;
+            /* 밑줄을 투명하게 CSS : transparent*/
+            border-bottom: 4px solid transparent;  
+        }
+        ul{
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #menu_wrap{
+            width: 500px;
+            margin: 0 auto;
+        }
+        #menu_wrap a.active{
+            border-bottom-color: #222;
+        }
+    </style>
+</head>
+<body>
+    
+    <nav id = "menu_wrap">
+        <ul>
+            <li><a href = "#">베스트</a></li>
+            <li><a href = "#">세일</a></li>
+            <li><a href = "#">패션</a></li>
+            <li><a href = "#">리빙</a></li>
+            <li><a href = "#">신상</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        // 동시에 여러개의 모두 접근가능한 DOM : querySelectorAll()
+        // querySelectorAll() : 배열로 저장한다.
+        let menuList = document.querySelectorAll('#menu_wrap a');  /* ★★★★★★ */
+        console.log('menuList', menuList); 
+        menuList.forEach((item) => {  // 반복문
+            // a태그 모두 마우스 호버하고 싶다면,
+            // addEventListener('이벤트종류'() => {...})
+            item.addEventListener('click', ()=>{
+                item.style.color = 'blue';
+            });
+            item.addEventListener('mouseenter', ()=>{
+                // classList.add('class이름(작명)') 속성은 태그에 class 이름을 추가한다.
+                item.classList.add('active');
+            });
+            item.addEventListener('mouseleave', ()=>{
+                // classList.remove('class이름(작명)') 속성은 class 이름을 삭제한다.
+                item.classList.remove('active');
+            });
+        });      
+
+        // for문으로 하기
+        for(let i = 0; i<menuList.length; i++){
+            menuList[i].addEventListener('click',()=>{
+                menuList[i].style.color = 'blue';
+            })
+            menuList[i].addEventListener('mouseenter',()=>{
+                menuList[i].classList.add('active');
+            })
+            menuList[i].addEventListener('mouseleave',()=>{
+                menuList[i].classList.remove('active');
+            })
+        }
+    </script>
+
+</body>
+</html>

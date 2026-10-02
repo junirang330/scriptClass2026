@@ -11,20 +11,20 @@
     
     <script>
         let menus = [
-            { id: 0, name: '아메리카노', type: 'HOT', price: 1000,quantity:0 },
-            { id:1, name: '아메리카노', type: 'ICE', price: 1300,quantity:0 },
-            { id: 2, name: '바닐라라떼', type: 'HOT', price: 2500,quantity:0 },
-            { id: 3, name: '바닐라라떼', type: 'ICE', price: 2800,quantity:0 },
-            { id: 4, name: '연유라떼', type: 'HOT', price: 2500,quantity:0 },
-            { id: 5, name: '연유라떼', type: 'ICE', price: 2800,quantity:0 },
-            { id: 6, name: '카라멜마끼아또', type: 'HOT', price: 2800,quantity:0 },
-            { id: 7, name: '카라멜마끼아또', type: 'ICE', price: 3000,quantity:0 },
-            { id: 8, name: '카페모카', type: 'HOT', price: 3000,quantity:0 },
-            { id: 9, name: '카페모카', type: 'ICE', price: 3300,quantity:0 },
-            { id: 10, name: '딥카페라테', type: 'HOT', price: 3400,quantity:0 },
-            { id: 11, name: '딥카페라테', type: 'ICE', price: 3700,quantity:0 },
+            { id: 0, name: '아메리카노', type: 'HOT', price: 1000,quantity:1 },
+            { id:1, name: '아메리카노', type: 'ICE', price: 1300,quantity:1 },
+            { id: 2, name: '바닐라라떼', type: 'HOT', price: 2500,quantity:1 },
+            { id: 3, name: '바닐라라떼', type: 'ICE', price: 2800,quantity:1 },
+            { id: 4, name: '연유라떼', type: 'HOT', price: 2500,quantity:1 },
+            { id: 5, name: '연유라떼', type: 'ICE', price: 2800,quantity:1 },
+            { id: 6, name: '카라멜마끼아또', type: 'HOT', price: 2800,quantity:1 },
+            { id: 7, name: '카라멜마끼아또', type: 'ICE', price: 3000,quantity:1 },
+            { id: 8, name: '카페모카', type: 'HOT', price: 3000,quantity:1 },
+            { id: 9, name: '카페모카', type: 'ICE', price: 3300,quantity:1 },
+            { id: 10, name: '딥카페라테', type: 'HOT', price: 3400,quantity:1 },
+            { id: 11, name: '딥카페라테', type: 'ICE', price: 3700,quantity:1 },
         ];
-        let container = document.getElementById('container');
+        let container = document.querySelector('container');
         
         // for 문대로 돌면, 메뉴 순서대로 그려지다 보니, 아래로 쌓이는 방식에서 예외가 발생함
         // menus 배열에서 id 속성을 이용하여, 인덱스를 저장하여 기억해내는 임시 배열을 이용
@@ -71,25 +71,53 @@
                 // console.log(`idxs[i]의 값 : `);
                 let price = 0;
                 // 해당 상품의 가격(단가 X 수량)
-                price = menus[idxs[i]].price*menus[idxs[i]].quantity;   
+                price = idxs[i].price*idxs[i].quantity; 
+                console.log(price);  
                 // console.log(`price : ${price}`);
                 // 삼항연산자로, 수량이 1개 증가하면, 주문내역에 출력
-                menus[idxs[i]].quantity !=0 ? 
-                    result += `<div class = "putIn">
-                        <span class="order_menuName">${menus[idxs[i]].name}</span>
-                        (<span class="order_menuType">${menus[idxs[i]].type}</span>&nbsp;)
-                        <span class="order_menuQuantity">${menus[idxs[i]].quantity}개</span>, 
-                        ${price.toLocaleString()}원
-                        </div>
-                        <div class= "btn">
-                        <button onclick="minus(${idxs[i]})">-</button>
-                        <button onclick="plus(${idxs[i]})">+</button>
-                        <button onclick="deletes(${idxs[i]})">X</button>
-                        </div> ` : ''; 
+                // console.log(idxs[0].quantity);
+                
+                result += `<div class = "putIn">
+                    <span class="order_menuName">${idxs[i].name}</span>
+                    (<span class="order_menuType">${idxs[i].type}</span>&nbsp;)
+                    <span class="order_menuQuantity">${idxs[i].quantity}개</span>, 
+                    ${price.toLocaleString()}원
+                    </div>
+                    <div class= "btn">
+                    <button onclick="minus(${i})">-</button>
+                    <button onclick="plus(${i})">+</button>
+                    <button onclick="deletes(${i})">X</button>
+                    </div> `; 
                 // console.log(`price : ${price}`);
                 tmp += price;
                 // menus[i].quantity = 0;
             }
+
+            // for(let i = 0; i<idxs.length; i++){
+
+            //     // console.log(`idxs[i]의 값 : `);
+            //     let price = 0;
+            //     // 해당 상품의 가격(단가 X 수량)
+            //     price = menus[idxs[i]].price*menus[idxs[i]].quantity;   
+            //     // console.log(`price : ${price}`);
+            //     // 삼항연산자로, 수량이 1개 증가하면, 주문내역에 출력
+            //     menus[idxs[i]].quantity !=0 ? 
+            //         result += `<div class = "putIn">
+            //             <span class="order_menuName">${menus[idxs[i]].name}</span>
+            //             (<span class="order_menuType">${menus[idxs[i]].type}</span>&nbsp;)
+            //             <span class="order_menuQuantity">${menus[idxs[i]].quantity}개</span>, 
+            //             ${price.toLocaleString()}원
+            //             </div>
+            //             <div class= "btn">
+            //             <button onclick="minus(${idxs[i]})">-</button>
+            //             <button onclick="plus(${idxs[i]})">+</button>
+            //             <button onclick="deletes(${idxs[i]})">X</button>
+            //             </div> ` : ''; 
+            //     // console.log(`price : ${price}`);
+            //     tmp += price;
+            //     // menus[i].quantity = 0;
+            // }
+
             totalPrice += tmp;
             result += `</div></div></div>
                 <div class = "bottom">
@@ -104,33 +132,55 @@
 
         // 메뉴 버튼 li 눌렀을때, 함수
         function add_orders(i){
-            menus[i].quantity++;
-            
-            // 반복문 돌면서, 최초로 수량이 1이 되는 경우에, 
-            // idxs 배열에 id 값 넣기
-            if(menus[i].quantity==1){
-                idxs.push(menus[i].id);
-                console.log(`idxs : ${idxs}`);
+            // let jangcnt = 0;
+            // idxs.push(menus[i]);
+            // 체크키
+            let chk = -1;
+
+            // let tmpCart = [];
+            // tmpCart
+
+            //반복문을 통해서, 기존에 상품있는지 확인하는 단계
+            for(let j = 0; j<idxs.length; j++){
+                if(menus[i].id == idxs[j].id){
+                    chk = j;
+                }
             }
+
+            // chk = -1이면 상품이 장바구니 없으면
+            // 추가
+            // 동일한 상품이 없는 경우에는, 상품 신규 추가
+            if(chk == -1){
+                idxs.push(menus[i]);
+            }else{ // chk가 -1이 아니면 수량만 1씩 증가
+                idxs[chk].quantity ++;
+            }
+
             render();
-        }
+        }   
+                  
 
         // 마이너스 함수
         function minus(i){
             // 1밑으로는 경고 메시지
-            menus[i].quantity == 1 ? 
-                alert("수량은 최소 1개 이상이어야 합니다"): 
-                menus[i].quantity--;
+            for(let j = 0; j<idxs.length; j++){
+                if(idxs[j].quantity == 1){
+                     alert("수량은 최소 1개 이상이어야 합니다");
+                }else{
+                    idxs[j].quantity--;
+                }
+            }
+                
             render();
         }
         // 플러스 함수
         function plus(i){
-            menus[i].quantity++;
+            idxs[i].quantity++;
             render();
         }
         // 삭제 함수
         function deletes(i){
-            menus[i].quantity = 0;
+            idxs[i].quantity = 0;
 
             // 인덱스 배열에서도 삭제하기
             // idxs.splice(menus[i].id,1);        
@@ -147,8 +197,8 @@
             render();
         }
         function reset(){
-            for(let i = 0; i<menus.length; i++) {
-                menus[i].quantity = 0;
+            for(let i = 0; i<idxs.length; i++) {
+                idxs[i].quantity = 0;
             }
             idxs = [];  //인덱스 배열 초기화 
             render();

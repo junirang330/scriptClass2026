@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메가박스 빠른예매</title>
+    <link rel="stylesheet" href="movie.css">
+</head>
+<body>
+    <div class = "container">
+        <header>
+            <span class = "title">빠른 예매</span>
+        </header>
+        <section>
+
+            <div class = "left_section">  <!-- 섹션 왼쪽 부분 -->
+                <!-- 좌석예매 하는 부분 -->
+                <div class = "select_head">
+                    <span>관람인원선택</span>
+                    <button>초기화</button>
+                </div>
+                <!-- 표 있는 부분 -->
+                <div class="seat_Map_container">
+                    <div class="screen_bar">SCREEN</div>
+                    <div class="row-label"></div>
+                    <div id="table" class="table"></div>
+                </div>
+
+            </div>
+
+            <div id = "right_section" class = "right_section"> <!-- 섹션 오른쪽 부분 -->
+                <div class="btn">
+                    <button>이전</button>
+                    <button>다음</button>
+            </div>
+        </div>
+
+        </section>
+    </div>
+    
+    <script>
+        let table = document.getElementById('table');
+        let right_section = document.getElementById('right_section');
+        let movie = {
+            ageRaing: 'ALL', // 나이 제한
+            movieName: '치이카와:인어 섬의 비밀',  // 영화제목
+            filmType: '2D',
+            theaterName: '신촌 메가박스',
+            screenName: '3관',
+            playDate: '2026.10.16(금)',
+            showTime: '09:30 ~ 10:30',
+            posterUrl: `<img src="chikawa.jpg" alt="치이카와"/>`
+        };
+        
+        // 표 그리는 함수
+        function render_table(){
+            // 출력할 변수 results
+            let results = '';
+            // 2차원 배열로 표 만들기
+            const seat_Map = Array.from(Array(10),() => new Array(10));
+            // console.log('map',seat_Map);
+            
+            let tmp = 1;  /* table 안에 표시하는 좌석번호 글자 변수 */
+            for(let i = 0; i<seat_Map.length; i++){
+                for(let j = 0; j<seat_Map[i].length; j++){
+                    // console.log(`${[i]}, ${[j]} : ${seat_Map[i][j]}`);
+                    // console.log(seat_Map);
+                    results += `<div class="cell">${tmp}</div>`; 
+                    tmp ++;
+                    console.log(tmp);
+                }
+            }
+            table.innerHTML = results;
+        }
+
+        function render_right(){
+            // 영화 정보들 그리기
+            let results ='';
+            results += `<div class="movieInfo">${movie.ageRaing}${movie.movieName}${movie.filmType}</div>
+                <div class = "movieDetail"><div class="theaterInfo">${movie.movieName}${movie.theaterName}
+                    ${movie.screenName}${movie.playDate}${movie.showTime}</div>
+                <div class = "poster_img">${movie.posterUrl}</div></div>
+                <div class="seat_info"></div>
+                <div class="totalPrice">
+                </div>`;
+
+            right_section.innerHTML = results;    
+        }   
+
+        render_table();
+        render_right();
+
+    </script>
+
+</body>
+</html>
