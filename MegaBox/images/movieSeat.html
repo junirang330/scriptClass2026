@@ -27,8 +27,10 @@
                 </div>
 
             </div>
-
-            <div id = "right_section" class = "right_section"> <!-- 섹션 오른쪽 부분 -->
+            <!-- 섹션 오른쪽 부분 -->
+            <div class = "right_section"> 
+                <div class="movie_info" id="movie_info"></div>
+                
                 <div class="btn">
                     <button>이전</button>
                     <button>다음</button>
@@ -40,7 +42,7 @@
     
     <script>
         let table = document.getElementById('table');
-        let right_section = document.getElementById('right_section');
+        let movieInfoBox = document.getElementById('movie_info');
         let movie = {
             ageRaing: 'ALL', // 나이 제한
             movieName: '치이카와:인어 섬의 비밀',  // 영화제목
@@ -73,7 +75,7 @@
             table.innerHTML = results;
         }
 
-        function render_right(){
+        function movieInfo(){
             // 영화 정보들 그리기
             let results ='';
             results += `<div class="movieInfo">${movie.ageRaing}${movie.movieName}${movie.filmType}</div>
@@ -84,11 +86,11 @@
                 <div class="totalPrice">
                 </div>`;
 
-            right_section.innerHTML = results;    
+            movieInfoBox.innerHTML = results;    
         }   
 
         render_table();
-        render_right();
+        movieInfo();
 
     </script>
 
