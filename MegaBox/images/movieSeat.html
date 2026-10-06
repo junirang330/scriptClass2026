@@ -24,25 +24,25 @@
                     <div class="adult">
                         <span>성인</span>
                         <div class="numBox">
-                            <button class="minus">-</button>
-                            <span id="num">0</span>
-                            <button class="plus">+</button>
+                            <button class="minus_adult">-</button>
+                            <span id="num_adult">0</span>
+                            <button class="plus_adult">+</button>
                         </div>
                     </div>
-                    <div class="adult">
+                    <div class="teenager">
                         <span>청소년</span>
                         <div class="numBox">
-                            <button class="minus">-</button>
-                            <span id="num">0</span>
-                            <button class="plus">+</button>
+                            <button class="minus_teenager">-</button>
+                            <span id="num_teenager">0</span>
+                            <button class="plus_teenager">+</button>
                         </div>
                     </div>
-                    <div class="adult">
+                    <div class="elder">
                         <span>경로</span>
                         <div class="numBox">
-                            <button class="minus">-</button>
-                            <span id="num">0</span>
-                            <button class="plus">+</button>
+                            <button class="minus_elder">-</button>
+                            <span id="num_elder">0</span>
+                            <button class="plus_elder">+</button>
                         </div>
                     </div>
                 </div>
@@ -103,52 +103,101 @@
     <script>
         let table = document.getElementById('table');
         let movieInfoBox = document.getElementById('movie_info');
-        let selectedSeat = document.querySelector('selected_seat');
-        let totalPrice = document.querySelector('total_price');
-        // num 숫자
-        let num = document.getElementById('num');
-        // - 버튼 
-        let minus = document.querySelectorAll('.minus');
-        // + 버튼
-        let plus = document.querySelectorAll('.plus');
+        let selectedSeat = document.querySelector('.selected_seat');
+        let totalPrice = document.querySelector('.total_price');
 
-        num= 5;
-        let result = '';
-        minus.forEach((item)=>{
+        // -----------------------------------------------------------------------------------
+        // num 숫자
+        let numAdult = document.getElementById('num_adult');
+        let numTeenager = document.getElementById('num_teenager');
+        let numElder= document.getElementById('num_elder');
+        // - 버튼 
+        let minusAdult = document.querySelectorAll('.minus_adult');
+        let minusTeenager = document.querySelectorAll('.minus_teenager');
+        let minusElder = document.querySelectorAll('.minus_elder');
+        // + 버튼
+        let plusAdult = document.querySelectorAll('.plus_adult');
+        let plusTeenager = document.querySelectorAll('.plus_teenager');
+        let plusElder = document.querySelectorAll('.plus_elder');
+        // 숫자 세는 변수
+        let countAdult = 0;  /* 성인 카운트 변수 */
+        let countTeenager = 0;  /* 청소년 카운트 변수 */
+        let countElder = 0;  /* 경로 카운트 변수 */
+
+        minusAdult.forEach((item)=>{
             item.addEventListener('click',()=>{
-                if(num==0) alert('0명 밑으로는 선택되지 않습니다.');
+                if(countAdult==0) alert('0명 밑으로는 선택되지 않습니다.');
                 else {
-                    num--;
-                    result = num;
-                    num.innerText = result;
+                    countAdult--;
+                    numAdult.innerText = countAdult;
+                }
+            });
+                    
+        });
+        minusTeenager.forEach((item)=>{
+            item.addEventListener('click',()=>{
+                if(countTeenager==0) alert('0명 밑으로는 선택되지 않습니다.');
+                else {
+                    countTeenager--;
+                    numTeenager.innerText = countTeenager;
+                }
+            });
+                    
+        });
+        minusElder.forEach((item)=>{
+            item.addEventListener('click',()=>{
+                if(countElder==0) alert('0명 밑으로는 선택되지 않습니다.');
+                else {
+                    countElder--;
+                    numElder.innerText = countElder;
                 }
             });
                     
         });
 
-        plus.forEach((item)=>{
+        plusAdult.forEach((item)=>{
             item.addEventListener('click',()=>{
-                if(num>8) {
+                let totalCount = countAdult + countTeenager + countElder;  /* 총예약좌석 (8명 최대) */
+                if(totalCount==8) {
                     alert('인원선택은 총 8명까지만 가능합니다')
                 }else{
-                    num++;
-                    result = num;
-                    console.log(result);
-                    num.innerText = result;
+                    countAdult++;
+                    numAdult.innerText = countAdult;
                   
                 }
             });
         });
-
-
-       
-            
+        plusTeenager.forEach((item)=>{
+            item.addEventListener('click',()=>{
+                let totalCount = countAdult + countTeenager + countElder;  /* 총예약좌석 (8명 최대) */
+                if(totalCount==8) {
+                    alert('인원선택은 총 8명까지만 가능합니다')
+                }else{
+                    countTeenager++;
+                    numTeenager.innerText = countTeenager;
+                  
+                }
+            });
+        });
+        plusElder.forEach((item)=>{
+            item.addEventListener('click',()=>{
+                let totalCount = countAdult + countTeenager + countElder;  /* 총예약좌석 (8명 최대) */
+                if(totalCount==8) {
+                    alert('인원선택은 총 8명까지만 가능합니다')
+                }else{
+                    countElder++;
+                    numElder.innerText = countElder;
+                  
+                }
+            });
+        });
+        // -----------------------------------------------------------------------------------
         // 2차원 배열로 표 만들기
         const seat_Map = Array.from(Array(10),() => new Array(10));
 
         // 행 배열
         const row = ['A','B','C','D','E','F','G','H','I','J'];
-        // 희망 좌석 담을 배열
+        // 희망 좌석 담을 배열 (A1, j96 ... )
         const cart = [];
 
         // 총 예약희망 수 (8명까지만 가능)
@@ -175,7 +224,7 @@
             for(let i = 0; i<seat_Map.length; i++){
                 for(let j = 0; j<seat_Map[i].length; j++){
                     results += `<div class="cell" onclick = "add_seat(${i},${j})"><span class="seat_number">${tmp}</span></div>`; 
-                    seat_Map[i][j] = `${row[i]}${tmp}`;
+                    
                     tmp ++;
                 }
             }
