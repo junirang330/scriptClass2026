@@ -16,14 +16,54 @@
             <div class = "left_section">  <!-- 섹션 왼쪽 부분 -->
                 <!-- 좌석예매 하는 부분 -->
                 <div class = "select_head">
-                    <span>관람인원선택</span>
+                    <span class="test">관람인원선택</span>
                     <button>초기화</button>
+                </div>
+                <!-- 성인/청소년/우대 선택 -->
+                <div class="type">
+                    <div class="adult">
+                        <span>성인</span>
+                        <div class="numBox">
+                            <button class="minus">-</button>
+                            <span id="num">0</span>
+                            <button class="plus">+</button>
+                        </div>
+                    </div>
+                    <div class="adult">
+                        <span>청소년</span>
+                        <div class="numBox">
+                            <button class="minus">-</button>
+                            <span id="num">0</span>
+                            <button class="plus">+</button>
+                        </div>
+                    </div>
+                    <div class="adult">
+                        <span>경로</span>
+                        <div class="numBox">
+                            <button class="minus">-</button>
+                            <span id="num">0</span>
+                            <button class="plus">+</button>
+                        </div>
+                    </div>
                 </div>
                 <!-- 표 있는 부분 -->
                 <div class="seat_Map_container">
                     <div class="screen_bar">SCREEN</div>
-                    <div class="row-label"></div>
-                    <div id="table" class="table"></div>
+                    <div class="tableBox">
+                        <div class="row_label">
+                            <span>A</span>
+                            <span>B</span>
+                            <span>C</span>
+                            <span>D</span>
+                            <span>E</span>
+                            <span>F</span>
+                            <span>G</span>
+                            <span>H</span>
+                            <span>I</span>
+                            <span>J</span>
+                        </div>
+                        <div id="table" class="table"></div>
+                    </div>
                 </div>
 
             </div>
@@ -31,8 +71,28 @@
             <div class = "right_section"> 
                 <div class="movie_info" id="movie_info"></div>
                 
+
+                <!-- 좌석정보 -->
+                <div class="seat_info">
+                    <div class="seat_row">
+                        <div class="seat_item1">선택</div>
+                        <div class="seat_item2">예매완료</div>
+                        <div class="seat_item3">선택불가</div>
+                        <div class="seat_item4">일반</div>
+                    </div>
+                    <!-- 선택 좌석 -->
+                    <div class="selected_seat">                   
+                    </div>
+                </div>
+
+                <!-- 최종결제금액 -->
+                <div class="priceBox">
+                    <span>최종결제금액</span>
+                    <span class="total_Price"></span>
+                </div>
+
                 <div class="btn">
-                    <button>이전</button>
+                    <button class="before">이전</button>
                     <button>다음</button>
             </div>
         </div>
@@ -43,51 +103,161 @@
     <script>
         let table = document.getElementById('table');
         let movieInfoBox = document.getElementById('movie_info');
+        let selectedSeat = document.querySelector('selected_seat');
+        let totalPrice = document.querySelector('total_price');
+        // num 숫자
+        let num = document.getElementById('num');
+        // - 버튼 
+        let minus = document.querySelectorAll('.minus');
+        // + 버튼
+        let plus = document.querySelectorAll('.plus');
+
+        num= 5;
+        let result = '';
+        minus.forEach((item)=>{
+            item.addEventListener('click',()=>{
+                if(num==0) alert('0명 밑으로는 선택되지 않습니다.');
+                else {
+                    num--;
+                    result = num;
+                    num.innerText = result;
+                }
+            });
+                    
+        });
+
+        plus.forEach((item)=>{
+            item.addEventListener('click',()=>{
+                if(num>8) {
+                    alert('인원선택은 총 8명까지만 가능합니다')
+                }else{
+                    num++;
+                    result = num;
+                    console.log(result);
+                    num.innerText = result;
+                  
+                }
+            });
+        });
+
+
+       
+            
+        // 2차원 배열로 표 만들기
+        const seat_Map = Array.from(Array(10),() => new Array(10));
+
+        // 행 배열
+        const row = ['A','B','C','D','E','F','G','H','I','J'];
+        // 희망 좌석 담을 배열
+        const cart = [];
+
+        // 총 예약희망 수 (8명까지만 가능)
+        let count = 0;
+
         let movie = {
             ageRaing: 'ALL', // 나이 제한
-            movieName: '치이카와:인어 섬의 비밀',  // 영화제목
-            filmType: '2D',
-            theaterName: '신촌 메가박스',
-            screenName: '3관',
-            playDate: '2026.10.16(금)',
-            showTime: '09:30 ~ 10:30',
-            posterUrl: `<img src="chikawa.jpg" alt="치이카와"/>`
+            movieName: '룩백',  // 영화제목
+            filmType: '2D Dolby V+A(자막)',
+            theaterName: '상암월드컵경기장',
+            screenName: 'DOLBY VISION+ATMOS',
+            playDate: '2026.10.11(일)',
+            showTime: '08:40 ~ 10:30',
+            posterUrl: `<img src="lookback.jpg" alt="룩백">`
         };
-        
+
         // 표 그리는 함수
         function render_table(){
             // 출력할 변수 results
             let results = '';
-            // 2차원 배열로 표 만들기
-            const seat_Map = Array.from(Array(10),() => new Array(10));
             // console.log('map',seat_Map);
             
             let tmp = 1;  /* table 안에 표시하는 좌석번호 글자 변수 */
             for(let i = 0; i<seat_Map.length; i++){
                 for(let j = 0; j<seat_Map[i].length; j++){
-                    // console.log(`${[i]}, ${[j]} : ${seat_Map[i][j]}`);
-                    // console.log(seat_Map);
-                    results += `<div class="cell">${tmp}</div>`; 
+                    results += `<div class="cell" onclick = "add_seat(${i},${j})"><span class="seat_number">${tmp}</span></div>`; 
+                    seat_Map[i][j] = `${row[i]}${tmp}`;
                     tmp ++;
-                    console.log(tmp);
                 }
             }
+            
+            console.log('맵',seat_Map);
             table.innerHTML = results;
         }
+
+        let addSeat = document.querySelectorAll('.cell');
+        // addSeat.classList.add('active');
+        addSeat.forEach((item)=>{
+            item.addEventListener('click', ()=>{
+                item.classList.add('active');
+            });
+        });
+        
+
 
         function movieInfo(){
             // 영화 정보들 그리기
             let results ='';
-            results += `<div class="movieInfo">${movie.ageRaing}${movie.movieName}${movie.filmType}</div>
-                <div class = "movieDetail"><div class="theaterInfo">${movie.movieName}${movie.theaterName}
-                    ${movie.screenName}${movie.playDate}${movie.showTime}</div>
+            results += `<div class="movieInfo">${movie.ageRaing}${movie.movieName}
+                <br/>${movie.filmType}</div>
+                <div class = "movieDetail"><div class="theaterInfo">${movie.movieName}<br/>
+                    ${movie.theaterName}<br/>
+                    ${movie.screenName}<br/>
+                    ${movie.playDate}<br/>
+                    ${movie.showTime}</div>
                 <div class = "poster_img">${movie.posterUrl}</div></div>
-                <div class="seat_info"></div>
-                <div class="totalPrice">
                 </div>`;
 
             movieInfoBox.innerHTML = results;    
         }   
+
+        // 좌석 선택하는 함수
+        function add_seat(i, j){
+            // 체크키
+            let chk = -1;
+            // console.log(seat_Map);
+
+            // if(seat_Map[i][j]==null) seat_Map[i][j] = 1;
+            //반복문을 통해서, 기존에 좌석있는지 확인하는 단계
+            for(let k = 0; k<seat_Map.length; k++){
+                for(let m = 0; m<seat_Map[k].length; m++){
+                    if(seat_Map[i][j]==chk){
+                        chk = 1;
+                        seat_Map[i][j] = chk;
+                        // console.log(chk);
+                        // console.log(`${seat_Map[i],[j]}`);
+                        cart.push(seat_Map[i],[tmp]);
+                        console.log(`cart: ${cart}`);
+                        break;
+                    }
+                    
+                }
+            }
+            
+            count++;
+            console.log('count',count);
+
+            render_table();
+        }
+
+        // 우측에 선택한 좌석 그리는 함수
+        function render_selectedSeats(){
+
+        }
+
+        // function minus(){
+
+
+        //     render_table();
+        //     movieInfo();
+        // }
+
+        // function plus(){
+
+
+        //     render_table();
+        //     movieInfo();
+        // }
+
 
         render_table();
         movieInfo();

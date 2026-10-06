@@ -24,7 +24,7 @@
             { id: 10, name: '딥카페라테', type: 'HOT', price: 3400,quantity:1 },
             { id: 11, name: '딥카페라테', type: 'ICE', price: 3700,quantity:1 },
         ];
-        let container = document.querySelector('container');
+        let container = document.querySelector('#container'); 
         
         // for 문대로 돌면, 메뉴 순서대로 그려지다 보니, 아래로 쌓이는 방식에서 예외가 발생함
         // menus 배열에서 id 속성을 이용하여, 인덱스를 저장하여 기억해내는 임시 배열을 이용
@@ -88,35 +88,10 @@
                     <button onclick="plus(${i})">+</button>
                     <button onclick="deletes(${i})">X</button>
                     </div> `; 
-                // console.log(`price : ${price}`);
                 tmp += price;
-                // menus[i].quantity = 0;
             }
 
-            // for(let i = 0; i<idxs.length; i++){
 
-            //     // console.log(`idxs[i]의 값 : `);
-            //     let price = 0;
-            //     // 해당 상품의 가격(단가 X 수량)
-            //     price = menus[idxs[i]].price*menus[idxs[i]].quantity;   
-            //     // console.log(`price : ${price}`);
-            //     // 삼항연산자로, 수량이 1개 증가하면, 주문내역에 출력
-            //     menus[idxs[i]].quantity !=0 ? 
-            //         result += `<div class = "putIn">
-            //             <span class="order_menuName">${menus[idxs[i]].name}</span>
-            //             (<span class="order_menuType">${menus[idxs[i]].type}</span>&nbsp;)
-            //             <span class="order_menuQuantity">${menus[idxs[i]].quantity}개</span>, 
-            //             ${price.toLocaleString()}원
-            //             </div>
-            //             <div class= "btn">
-            //             <button onclick="minus(${idxs[i]})">-</button>
-            //             <button onclick="plus(${idxs[i]})">+</button>
-            //             <button onclick="deletes(${idxs[i]})">X</button>
-            //             </div> ` : ''; 
-            //     // console.log(`price : ${price}`);
-            //     tmp += price;
-            //     // menus[i].quantity = 0;
-            // }
 
             totalPrice += tmp;
             result += `</div></div></div>
