@@ -1,0 +1,522 @@
+@charset 'utf-8';
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 30px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕', sans-serif;
+    font-size: 15px;
+    color: #333;
+    background-color: #f7f8f9;
+}
+
+.container {
+    width: 820px;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+}
+
+/* ------------------ 헤더 ------------------ */
+header {
+    background-color: #503396; /* 메가박스 시그니처 퍼플 */
+    padding: 16px 24px;
+}
+
+.title {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+}
+
+/* ------------------ 메인 섹션 ------------------ */
+section {
+    display: flex;
+    min-height: 560px;
+    border: 1px solid #e2e2e2;
+    border-top: none;
+}
+
+/* ------------------ 좌측 (좌석 선택 영역) ------------------ */
+.left_section {
+    width: 490px;
+    padding: 24px 20px;
+    background-color: #fff;
+    border-right: 1px solid #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 관람인원선택 헤더 */
+.select_head {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #333;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.select_head button {
+    background-color: #fff;
+    border: 1px solid #bbb;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.select_head button:hover {
+    background-color: #f0f0f0;
+}
+
+/* 스크린 바 */
+.seat_Map_container {
+    width: 100%;
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.screen_bar {
+    width: 375px;
+    height: 26px;
+    line-height: 26px;
+    text-align: center;
+    background-color: #dedede;
+    color: #666;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    margin-left: 30px;
+}
+
+/* 좌석 그리드 (10 x 10) */
+#table {
+  display: grid;
+  grid-template-columns: repeat(10, 32px);
+  grid-template-rows: repeat(10, 32px);
+  gap: 6px;
+}
+
+/* 좌석 전체 박스 정렬 (라벨 + 10x10 테이블 가로 배치) */
+.tableBox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px; /* A~J 라벨과 좌석 사이 간격 */
+}
+
+/* A~J 세로 라벨 영역 */
+.row_label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* #table의 gap(6px)과 반드시 일치 */
+}
+
+/* A~J 개별 글자 (.cell의 높이 32px와 일치) */
+.row_label span {
+  width: 20px;
+  height: 32px; /* 좌석 셀(.cell) 세로 높이(32px)와 맞춤 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: bold;
+  color: #666666;
+}
+
+/* 공통 좌석 스타일 */
+.cell {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.15s ease;
+}
+
+/* 0: 일반 빈 좌석 */
+.cell.blank {
+  background-color: #6c757d;
+  color: #ffffff;
+}
+.cell.blank:hover {
+  background-color: #5a6268;
+}
+
+/* 1: 선택(카트에 담김) 좌석 */
+.cell.onCart {
+  background-color: #dc3545; /* 메가박스 시그니처 붉은 계열 */
+  color: #ffffff;
+}
+
+/* -1: 이미 예매/결제 완료된 좌석 */
+.cell.reserved {
+  background-color: #212529;
+  color: #6c757d;
+  cursor: not-allowed;
+  text-decoration: line-through;
+}
+
+/* ========================================================= */
+/* 우측 섹션 (영화정보, 범례/선택좌석, 결제금액, 버튼)          */
+/* ========================================================= */
+
+.right_section {
+    width: 320px;
+    background-color: #fbfbfb;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* 1. 상단 영화 정보 */
+.movie_info {
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom: 18px;
+}
+
+.movieInfo {
+    font-size: 15px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+.movieDetail {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.theaterInfo {
+    flex: 1;
+    font-size: 12px;
+    color: #777;
+    line-height: 1.6;
+}
+
+.poster_img {
+    width: 68px;
+    height: 96px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.poster_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* 2. 중앙 좌석 상태 범례 + 선택좌석 박스 */
+.seat_info {
+    margin-top: 14px;
+    padding: 16px 14px;
+    background-color: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 좌측 범례 */
+.seat_row {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 2px;
+}
+
+.seat_row > div {
+    font-size: 12px;
+    font-weight: 500;
+    color: #555555;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.seat_row > div::before {
+    content: '';
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-radius: 3px;
+}
+
+.seat_item1::before { background-color: #503396; } /* 선택: 보라 */
+.seat_item2::before { background-color: #212529; } /* 예매완료: 어두운 먹색 */
+.seat_item3::before { background-color: #dc3545; } /* 선택불가: 레드 */
+.seat_item4::before { 
+    background-color: #6c757d; 
+    border: 1px solid #ced4da; 
+} /* 일반: 좌측 좌석과 동일한 회색 */
+
+/* 우측 선택좌석 묶음 */
+.selected_wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: 14px;
+    border-left: 1px solid #eee;
+}
+
+.selected_title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #444;
+    letter-spacing: -0.3px;
+    margin-bottom: 8px;
+}
+
+/* 2열 4행 그리드 */
+.selected_seat {
+    display: grid;
+    grid-template-columns: repeat(2, 34px);
+    grid-template-rows: repeat(4, 26px);
+    gap: 5px;
+    width: auto;
+    padding: 0;
+    background: transparent;
+}
+
+/* 기본 빈 슬롯 (-) */
+.selected_seat .onCart_cell {
+    width: 34px;
+    height: 26px;
+    background-color: #f8f9fa;
+    border: 1px dashed #d1d5db;
+    color: #adb5bd;
+    font-size: 11px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+}
+
+/* 좌석이 선택되어 이름이 들어갔을 때 (하이라이트) */
+.selected_seat .onCart_cell:not(:empty):not(:contains('-')) {
+    background-color: #503396;
+    border: 1px solid #503396;
+    color: #ffffff;
+    font-weight: 700;
+    box-shadow: 0 1px 3px rgba(80, 51, 150, 0.25);
+}
+
+/* 선택된 인원 타입별 표시 영역 */
+.type_amount {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 14px;
+  min-height: 26px; /* 인원이 0명일 때도 레이아웃 높이 유지 */
+  align-items: center;
+}
+
+/* 개별 인원 뱃지 스타일 */
+.type_amount .group {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 8px;
+  background-color: #f1f3f5;
+  border: 1px solid #e9ecef;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #495057;
+  letter-spacing: -0.3px;
+}
+
+
+/* 3. 최종결제금액 박스 */
+.priceBox {
+    margin-top: 18px;
+    padding: 12px 14px;
+    background-color: #f1f3f5;
+    border-radius: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.priceBox span:first-child {
+    font-size: 13px;
+    font-weight: 600;
+    color: #495057;
+}
+
+#total_Price {
+    font-size: 17px;
+    font-weight: 800;
+    color: #503396; /* 결제금액 강조 */
+}
+
+/* 4. 이전 / 다음 버튼 */
+.btn {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.btn button {
+    flex: 1;
+    height: 42px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.btn button:first-child {
+    background-color: #ffffff;
+    border: 1px solid #ced4da;
+    color: #495057;
+}
+
+.btn button:first-child:hover {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+}
+
+.btn .next_btn {
+    background-color: #503396;
+    border: 1px solid #503396;
+    color: #ffffff;
+}
+
+.btn .next_btn:hover {
+    background-color: #40287a;
+    border-color: #40287a;
+}
+
+.selected_seat .onCart_cell.active {
+    background-color: #503396;
+    border: 1px solid #503396;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+/* -------------------------------------------------------------------------------------- */
+/* 자바스크립트 css */
+.seat_number{
+    /* color: transparent; */
+}
+
+.seat_number.active{
+    border-bottom-color: black;
+    background-color: yellow;
+    border: none;
+    color: blue;
+}
+/* 성인/청소년/우대 전체를 감싸는 연회색 바탕 박스 */
+.type {
+    width: 100%;
+    background-color: #f2f4f5; /* 이미지와 같은 연회색 배경 */
+    padding: 5px 16px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    border-radius: 4px;
+    font-size: 10px;
+}
+.typeName{
+    display: block;
+    width: 30px;
+    font-size: 10px;
+}
+
+/* 각 항목 (성인 + 숫자조절박스) */
+.adult {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.adult > span {
+    font-size: 13px;
+    font-weight: bold;
+    color: #444;
+}
+
+/* [- 0 +] 흰색 버튼 박스 */
+.numBox {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    height: 28px;
+}
+
+/* 마이너스, 플러스 버튼 */
+.numBox button {
+    width: 26px;
+    height: 100%;
+    border: none;
+    background-color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.numBox button:hover {
+    background-color: #e9ecef;
+}
+
+/* 가운데 숫자 (0) */
+.numBox .num {
+    min-width: 28px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: bold;
+    color: #222;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    line-height: 28px;
+}
+
+.minus.active{
+    color: blue;
+}
+
+.plus.active{
+    color: blue;
+}

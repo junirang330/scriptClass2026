@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메가박스 빠른예매</title>
+    <link rel="stylesheet" href="movie.css">
+</head>
+<body>
+    <div class = "container">
+        <header>
+            <span class = "title">빠른 예매</span>
+        </header>
+        <section>
+
+            <div class = "left_section">  <!-- 섹션 왼쪽 부분 -->
+                <!-- 좌석예매 하는 부분 -->
+                <div class = "select_head">
+                    <span class="test">관람인원선택</span>
+                    <button onclick="resetBtn()" class="reset_btn">초기화</button>
+                </div>
+                <!-- 성인/청소년/우대 선택 -->
+                <div id = "type" class="type">
+                </div>
+                <!-- 표 있는 부분 -->
+                <div class="seat_Map_container">
+                    <div class="screen_bar">SCREEN</div>
+                    <div class="tableBox">
+                        <div class="row_label">
+                            <span>A</span>
+                            <span>B</span>
+                            <span>C</span>
+                            <span>D</span>
+                            <span>E</span>
+                            <span>F</span>
+                            <span>G</span>
+                            <span>H</span>
+                            <span>I</span>
+                            <span>J</span>
+                        </div>
+                        <div id="table" class="table"></div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 섹션 오른쪽 부분 -->
+            <div class = "right_section"> 
+                <div class="movie_info" id="movie_info"></div>
+                
+
+                <!-- 좌석정보 -->
+                <div class="seat_info">
+                    <div class="seat_row">
+                        <div class="seat_item1">선택</div>
+                        <div class="seat_item2">예매완료</div>
+                        <div class="seat_item3">선택불가</div>
+                        <div class="seat_item4">일반</div>
+                    </div>
+                    <!-- 선택 좌석 -->
+                    <!-- 우측 선택 좌석 묶음 -->
+                    <div class="selected_wrap">
+                        <span class="selected_title">선택좌석</span>
+                        <div id="selected_seat" class="selected_seat"></div>
+                    </div>
+                </div>
+
+                <!-- 타입별 인원 -->
+                <div id="type_amount" class="type_amount"></div>
+                <!-- 최종결제금액 -->
+                <div class="priceBox">
+                    <span>최종결제금액</span>
+                    <span id="total_Price"></span>
+                </div>
+
+                <div class="btn">
+                    <button onclick ="before()">이전</button>
+                    <button onclick ="nextBtn()" class="next_btn">다음</button>
+            </div>
+        </div>
+
+        </section>
+    </div>
+    
+
+    <script>
+        let table = document.getElementById('table');   /* 왼쪽 좌석표 100석 그릴 변수 */
+        let movieInfoBox = document.getElementById('movie_info');  /* 영화정보 그릴때 사용 */
+        let selectedSeat = document.getElementById('selected_seat');   /* 우측에 표시할 장바구니에 담긴 좌석 그리는 거 */
+        let totalPrice = document.getElementById('total_Price');  /* 최종결제금액 */
+        let typeAmount = document.getElementById('type_amount');  /* 타입별 인원 */
+        // let resetBtn = document.querySelector('.reset_btn');  /* 초기화 버튼 */
+        // let nextBtn = document.querySelectorAll('.reset_btn');  /* 다음 버튼 */
+        // ----------------------------------------------------------------------
+        /* 성인 요금 배열: 15000, 청소년 요금 : 12000, 경로 요금 : 10000 */
+        let typePrice = [15000, 12000, 10000];  
+        // -----------------------------------------------------------------------------------
+        let types = document.getElementById('type');
+        let type = ['성인', '청소년', '경로'];
+        let typeCnt = [0,0,0];  /* 성인/청소년/경로 카운트 저장할 배열 */
+        // 0:성인 카운트 , 1:청소년 카운트, 2: 경로 카운트
+        console.log(typeCnt);
+        function render_type(){
+            let result = '';  /* 결과물 변수 */
+            // 반복문으로 그리기
+            // console.log('result',result);
+            for(let i = 0; i<type.length; i++){
+                // typeCnt=[0,0,0];
+                result += `<div class="type">
+                            <span class="typeName">${type[i]}</span>
+                            <div class="numBox">
+                                <button onclick = "minus(${i})" class="minus">-</button>
+                                <span id="num">${typeCnt[i]}</span>
+                                <button onclick ="plus(${i})" class = "plus">+</button>
+                            </div>
+                        </div>`;
+            }
+            let num = document.getElementById('num');
+            types.innerHTML = result;
+            render_table();
+        }
+        function minus(i){
+            // console.log('1111');
+            if(typeCnt[i]==0){
+                alert('0명 이하는 선택불가합니다.');
+            }else{
+                typeCnt[i]--;
+                num.innerText = typeCnt[i];
+            }
+            console.log(typeCnt[i]);
+            render_type();
+            render_price();
+            render_typeResult();
+        }
+        function plus(i){
+            // console.log('1111111');
+            let totalCnt = typeCnt[0] + typeCnt[1] + typeCnt[2];
+            if(totalCnt==8) {
+                alert('인원선택은 총 8명까지만 가능합니다')
+            }else{
+                typeCnt[i]+=1;
+                num.innerText = typeCnt[i];
+            }
+            console.log(typeCnt[i]);
+            render_type();
+            render_price();
+            render_typeResult();
+        }
+        
+       
+        // -----------------------------------------------------------------------------------
+        // 2차원 배열로 표 만들기
+        const seat_Map = Array.from(Array(10),() => new Array(10));
+
+        // 행 배열
+        const row = ['A','B','C','D','E','F','G','H','I','J'];
+        // 희망 좌석 담을 배열 (A1, j96 ... )
+        const cart = [];
+
+        // 총 예약희망 수 (8명까지만 가능)
+        let count = 0;
+
+        let movie = {
+            ageRaing: 'ALL', // 나이 제한
+            movieName: '룩백',  // 영화제목
+            filmType: '2D Dolby V+A(자막)',
+            theaterName: '상암월드컵경기장',
+            screenName: 'DOLBY VISION+ATMOS',
+            playDate: '2026.10.11(일)',
+            showTime: '08:40 ~ 10:30',
+            posterUrl: `<img src="images/lookback.jpg" alt="룩백">`
+        };
+
+        // 표 그리는 함수
+        function render_table(){
+            // 출력할 변수 results
+            let results = '';
+            let tmp = 1;  /* table 안에 표시하는 좌석번호 글자 변수(1부터 100까지 그려낼 변수) */
+            for(let i = 0; i<seat_Map.length; i++){
+                for(let j = 0; j<seat_Map[i].length; j++){
+                    if(seat_Map[i][j]==-1) {  // 좌석예약(결제)이 된 경우 그림
+                        results += `<div class="cell reserved" onclick = "add_seat(${i},${j})"><span class="seat_number">${tmp}</span></div>`; 
+                    } else if(seat_Map[i][j]==1) {  //  된 경우 그림
+                        results += `<div class="cell onCart" onclick = "add_seat(${i},${j})"><span class="seat_number">${tmp}</span></div>`; 
+                    } else {   // 아직 빈 좌석인 경우 (seat_Map[i][j]==0 인 경우)
+                        results += `<div class="cell blank" onclick = "add_seat(${i},${j})"><span class="seat_number">${tmp}</span></div>`; 
+                    }
+                    tmp ++;
+                }
+            }
+            table.innerHTML = results;
+        }
+
+        let addSeat = document.querySelectorAll('.cell');
+    
+        function movieInfo(){
+            // 영화 정보들 그리기
+            let results ='';
+            results += `<div class="movieInfo">${movie.ageRaing}${movie.movieName}
+                <br/>${movie.filmType}</div>
+                <div class = "movieDetail"><div class="theaterInfo">${movie.movieName}<br/>
+                    ${movie.theaterName}<br/>
+                    ${movie.screenName}<br/>
+                    ${movie.playDate}<br/>
+                    ${movie.showTime}</div>
+                <div class = "poster_img">${movie.posterUrl}</div></div>
+                </div>`;
+
+            movieInfoBox.innerHTML = results;    
+        }   
+
+        // 좌석 선택하는 함수
+        function add_seat(i, j){
+
+            // 1. totalCnt !=0 아닌지 확인하는 단계
+            let totalCnt = typeCnt[0] + typeCnt[1] + typeCnt[2];
+            if(totalCnt==0){
+                alert('인원부터 선택해주세요');
+                return;
+            }
+            
+            // 2. 좌석 이름 생성 (카트에 담을때 사용하는 변수 ex)A1, J100)
+            let seatName = `${row[i]}${j+1}`;
+            
+            // 3. 결제된 상태인지 / 기존 선택한 좌석인지 확인하는 단계
+            
+            if(seat_Map[i][j]==-1){  // 예약된 좌석(결제처리)가 된 경우
+                alert('예약된 좌석입니다');
+                return;
+            }else if(seat_Map[i][j]==1){  // cart에 있는 경우 -> 기존꺼 취소
+                seat_Map[i][j] = 0;   /* 취소해서 0으로 돌리기 */
+                console.log('kkk',seat_Map[i][j]);
+                for(let k = 0; k<cart.length; k++){
+                    if(cart[k]==seatName){
+                        cart.splice(k,1);
+                        // return;
+                    }
+                }
+                render_type();
+                render_price();
+                render_table();
+                render_selectedSeats();
+            }else{  /* cart에도 없고, 예약된 좌석도 아닐시 */
+                // let tmpt = 0;
+                if(totalCnt==cart.length){
+                    alert('선택한 좌석 취소 후 선택해주세요');
+                }else{
+                    seat_Map[i][j] = 1;  /* 1로 바꾸고 */
+                    console.log('kkkaaa',seatName);
+                    cart.push(seatName);   /* 카트에도 담는 단계 */
+                    console.log('kkkaaabb',cart);
+                    // render_table();
+                }
+                // console.log('tmpt',tmpt);
+            }
+
+            render_table();
+            render_selectedSeats();
+        }
+
+        // 우측에 선택한 좌석 그리는 함수
+        function render_selectedSeats(){
+            // 그릴 변수
+            let result = '';
+            // 반복문으로 그리기
+            for(let i = 0; i<8; i++){
+                if(i<cart.length){
+                    // console.log('55555',cart[i]);
+                    result += `<div class="onCart_cell active">${cart[i]}</div>`;
+                }else{
+                    result += `<div class="onCart_cell">-</div>`;
+                }
+            }
+            selectedSeat.innerHTML = result;
+            // render_type();
+            // render_table();
+            // movieInfo();
+            // render_selectedSeats();
+        }
+
+        // 최종결제 금액 함수
+        function render_price(){
+            // 결과 그려낼 변수
+            // let result = 0;
+            let sum = 0;  // 최종금액 합계 담아낼 변수
+            
+            for(let i = 0; i<typeCnt.length; i++){
+                let totalP = typeCnt[i] * typePrice[i];
+                sum += totalP
+            }
+            totalPrice.innerHTML = sum.toLocaleString() + '원';
+        }
+
+        // 리셋버튼
+        function resetBtn(){
+            // 총인원 변수
+            let totalCnt = typeCnt[0] + typeCnt[1] + typeCnt[2]  ;
+            totalCnt = 0;
+            for(let i = 0; i<typeCnt.length; i++){
+                typeCnt[i] = 0;
+                console.log('3333',typeCnt[i]);
+            }
+            for(let i = 0; i<seat_Map.length; i++){
+                for(let j = 0; j<seat_Map[i].length; j++){
+                    if(seat_Map[i][j]==1){
+                        seat_Map[i][j] = 0;
+                    }
+                }
+            }
+            cart.length = 0;  /* 카트 비우기 */
+            typeCnt[0] = 0;
+            typeCnt[1] = 0;
+            typeCnt[2] = 0;
+            // totalPrice = 0;
+            render_table();
+            render_type();
+            render_price();
+            render_selectedSeats();
+            render_typeResult();
+        }
+
+        // 다음버튼
+        function nextBtn(){
+            // 총인원 변수
+            let totalCnt = typeCnt[0] + typeCnt[1] + typeCnt[2]  ;
+            console.log('5',totalCnt);
+            // 인원수 안누를 경우, 경고
+            if(totalCnt==0){
+                alert('인원부터 선택해주세요');
+                // return;
+            }else if(cart.length<totalCnt){
+                alert('좌석을 덜 선택하셨습니다.');
+            }else{
+                alert('좌석예약되었습니다.');
+                for(let i = 0; i<seat_Map.length; i++){
+                    for(let j = 0; j<seat_Map[i].length; j++){
+                        if(seat_Map[i][j] == 1){
+                            seat_Map[i][j] = -1;   // 예약좌석으로 바꾸기
+                        }
+                    }
+                }
+                // 모두 초기화
+                cart.length = 0;
+                // 타입별로도 초기화
+                typeCnt[0] = 0;
+                typeCnt[1] = 0;
+                typeCnt[2] = 0;
+                render_selectedSeats();
+                render_table();
+                render_price();
+                render_type();
+                render_typeResult();
+            }
+        }
+        // 최종결제 금액 위에 그리는 함수
+        function render_typeResult(){
+            let result = '';
+            console.log('3333');
+            for(let i = 0; i<typeCnt.length; i++){
+                if(typeCnt[i]==0){
+                    result += '';
+                    // result += `<span class="group">${type[i]} : ${typeCnt[i]}명 </span>`;
+                }else{
+                    result += `<span class="group">${type[i]} : ${typeCnt[i]}명 </span>`;
+                }
+                
+            }
+
+            typeAmount.innerHTML = result;
+        }
+
+
+        render_type();
+        render_table();
+        movieInfo();
+        render_selectedSeats();
+        render_price();
+        render_typeResult();
+    </script>
+
+</body>
+</html>
