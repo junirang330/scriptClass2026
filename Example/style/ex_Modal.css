@@ -1,0 +1,107 @@
+@charset 'utf-8';
+/* body안의 font-family는 
+   input, button은 적용받지 못함 
+*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    color: #222;
+    font-size: 15px;
+}
+.modal{
+    /* 모달은 고정이 기본값 */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);  /* 정가운데 위치 */
+    z-index: 10;
+    /* border: 1px solid red; */
+    opacity: 0;
+    
+}
+.modal.active{
+    opacity: 1;
+}
+
+
+.modal-content{
+    width: 600px;
+    /* border: 1px solid blue; */
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    background-color: #fff;
+    display: flex;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.modal-content > div{
+    padding: 20px;
+}
+/* 백그라운드 이미지로 이미지 삽입 */
+.photo{
+    /* border: 1px solid red; */
+    flex: 1;
+    /* 배경에 이미지의 경로 지정 */
+    background: url(/images/office.jpg);
+    /* 기본 배경이미지 반복되는 부분을 반복안함 */
+    background-repeat: no-repeat;
+    /* 배경이미지를 오른쪽으로 정렬 */
+    background-position: right;
+    /* 이미지가 요소의 크기에 맞도록 지정 */
+    background-size: cover;
+}
+.desc{
+    flex: 2;
+    /* border: 1px solid green; */
+    text-align: center;
+}
+.overlay{
+    /* position이 두개 이상일 경우, 늦게 나온 HTML 태그에
+       우선권이 주어진다. */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;  /* 부모요소의 높이 */
+    /* height: 100vh; => 현재 브라우저 화면 높이 */
+    background-color: rgba(0,0,0,0.3);
+    visibility: hidden;
+}
+.overlay.active{
+    opacity: 1;
+    visibility: visible;
+}
+.btn-close{
+    /* 자식임, 부모는 모달 */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 18px;
+    color: #999;
+    cursor: pointer;
+}
+.desc .desc-content input[type='email'],
+.desc .desc-content button{
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 7px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+.desc-content button{
+    background-color: crimson;
+    color: #fff;
+}
+.desc .desc-content input[type='email']::placeholder{
+    color: #bbb;
+}
+.desc .desc-content input[type='email']:focus::placeholder{
+    visibility: hidden;
+}

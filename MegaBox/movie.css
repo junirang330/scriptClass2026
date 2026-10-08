@@ -559,63 +559,55 @@ section {
 
 /* 3명 선택 시 */
 #table.hover-count-3 .cell.blank:hover,
-#table.hover-count-3 .cell.blank:hover + .cell.blank,
-#table.hover-count-3 .cell.blank:hover + .cell.blank + .cell.blank {
+#table.hover-count-3 .cell.blank:hover + .cell.blank{
   background-color: #503396;
   color: #ffffff;
 }
 
 /* 4명 선택 시 */
 #table.hover-count-4 .cell.blank:hover,
-#table.hover-count-4 .cell.blank:hover + .cell.blank,
-#table.hover-count-4 .cell.blank:hover + .cell.blank + .cell.blank,
-#table.hover-count-4 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank {
+#table.hover-count-4 .cell.blank:hover + .cell.blank {
   background-color: #503396;
   color: #ffffff;
 }
 
 /* 5명 선택 시 (추가) */
 #table.hover-count-5 .cell.blank:hover,
-#table.hover-count-5 .cell.blank:hover + .cell.blank,
-#table.hover-count-5 .cell.blank:hover + .cell.blank + .cell.blank,
-#table.hover-count-5 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank,
-#table.hover-count-5 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank + .cell.blank {
+#table.hover-count-5 .cell.blank:hover + .cell.blank{
   background-color: #503396;
   color: #ffffff;
 }
 
 /* 6명 선택 시 (추가) */
 #table.hover-count-6 .cell.blank:hover,
-#table.hover-count-6 .cell.blank:hover + .cell.blank,
-#table.hover-count-6 .cell.blank:hover + .cell.blank + .cell.blank,
-#table.hover-count-6 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank,
-#table.hover-count-6 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank + .cell.blank,
-#table.hover-count-6 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank + .cell.blank + .cell.blank {
+#table.hover-count-6 .cell.blank:hover + .cell.blank{
   background-color: #503396;
   color: #ffffff;
 }
 
 /* 7명 선택 시 (추가) */
 #table.hover-count-7 .cell.blank:hover,
-#table.hover-count-7 .cell.blank:hover + .cell.blank,
-#table.hover-count-7 .cell.blank:hover + .cell.blank + .cell.blank,
-#table.hover-count-7 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank,
-#table.hover-count-7 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank + .cell.blank,
-#table.hover-count-7 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank + .cell.blank + .cell.blank,
-#table.hover-count-7 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank + .cell.blank + .cell.blank + .cell.blank {
+#table.hover-count-7 .cell.blank:hover + .cell.blank{
   background-color: #503396;
   color: #ffffff;
 }
 
 /* 8명 선택 시 (추가) */
 #table.hover-count-8 .cell.blank:hover,
-#table.hover-count-8 .cell.blank:hover + .cell.blank,
-#table.hover-count-8 .cell.blank:hover + .cell.blank + .cell.blank,
-#table.hover-count-8 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank,
-#table.hover-count-8 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank + .cell.blank,
-#table.hover-count-8 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank + .cell.blank + .cell.blank,
-#table.hover-count-8 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank + .cell.blank + .cell.blank + .cell.blank,
-#table.hover-count-8 .cell.blank:hover + .cell.blank + .cell.blank + .cell.blank + .cell.blank + .cell.blank + .cell.blank + .cell.blank {
+#table.hover-count-8 .cell.blank:hover + .cell.blank{
   background-color: #503396;
   color: #ffffff;
+}
+
+/* 1명 남았을 때 (oddBlank 포함 단일 호버) */
+#table.hover-count-1 .cell.blank:hover,
+#table.hover-count-1 .cell.oddBlank:hover {
+  background-color: #503396;
+  color: #ffffff;
+}
+
+/* 잔여 좌석이 0명일 때는 호버 효과 비활성화 */
+#table.hover-count-0 .cell:hover {
+  background-color: inherit;
+  color: inherit;
 }

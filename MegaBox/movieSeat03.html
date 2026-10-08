@@ -129,17 +129,34 @@
         }
         function plus(i){
             let totalCnt = typeCnt[0] + typeCnt[1] + typeCnt[2];
+            
+            
             if(totalCnt==8) {
                 alert('인원선택은 총 8명까지만 가능합니다')
             }else{
                 typeCnt[i]+=1;
                 num.innerText = typeCnt[i];
+                console.log('플러스때typeCnt[0]',typeCnt[0]);
+                console.log('플러스때typeCnt[1]',typeCnt[1]);
+                console.log('플러스때typeCnt[2]',typeCnt[2]);
             }
-            console.log(typeCnt[i]);
+            // 장바구니 초기화 및 지정된 좌석 리셋하기
+            // for(let i = 0; i<seat_Map.length; i++){
+            //     for(let j = 0; j<seat_Map[i].length; j++){
+            //         if(seat_Map[i][j]==1){
+            //             seat_Map[i][j] = 0;
+            //         }
+            //     }
+            // }
+            console.log('플러스때totalCnt',totalCnt);
+            // console.log(typeCnt[i]);
+            // cart.length=0;
+            render_selectedSeats();
             render_type();
             render_price();
             render_typeResult();
-            add_seat();
+            
+            // add_seat();
         }
         
        
@@ -172,9 +189,9 @@
             let results = '';
             // 총인원수 변수
             let totalCnt = typeCnt[0] + typeCnt[1] + typeCnt[2];
-            
+            let possibleCnt = totalCnt - cart.length;
             // [추가] #table 태그에 현재 인원 수에 맞는 클래스 부여 (예: table hover-count-2)
-            table.className = `table hover-count-${totalCnt}`;
+            table.className = `table hover-count-${possibleCnt}`;
 
             // console.log('121212',totalCnt);
             let tmp = 1;  /* table 안에 표시하는 좌석번호 글자 변수(1부터 100까지 그려낼 변수) */
@@ -185,7 +202,7 @@
                     } else if(seat_Map[i][j]==1) {  // 카트에 담긴 경우 그림
                         results += `<div class="cell onCart" onclick = "add_seat(${i},${j})"><span class="seat_number">${tmp}</span></div>`; 
                     } else {   // 아직 빈 좌석인 경우 (seat_Map[i][j]==0 인 경우)
-                        if(totalCnt==1){  /* 한명만 선택한 경우, 짝수열은 선택안되게 그림만 그림 */
+                        if(possibleCnt==1){  /* 한명만 선택한 경우, 짝수열은 선택안되게 그림만 그림 */
                             if(j%2==0){
                                 results += `<div class="cell oddBlank" onclick = "add_seat(${i},${j})"><span class="seat_number">${tmp}</span></div>`; 
                             }else{
@@ -221,9 +238,12 @@
 
         // 좌석 선택하는 함수
         function add_seat(i, j){
-
             // 1. totalCnt !=0 아닌지 확인하는 단계
             let totalCnt = typeCnt[0] + typeCnt[1] + typeCnt[2];
+            console.log('add_seat 할때 typeCnt[0]',typeCnt[0]);
+            console.log('add_seat 할때 typeCnt[1]',typeCnt[1]);
+            console.log('add_seat 할때 typeCnt[2]',typeCnt[2]);
+            let possibleCnt = totalCnt-cart.length;
             if(totalCnt==0){
                 alert('인원부터 선택해주세요');
                 return;
@@ -236,58 +256,72 @@
             if(seat_Map[i][j]==-1){  // 예약된 좌석(결제처리)가 된 경우
                 alert('예약된 좌석입니다');
                 return;
-            }else if(seat_Map[i][j]==1){  // cart에 있는 경우 -> 기존꺼 취소
-                if(totalCnt==1){
+            }
+
+                
+            if(seat_Map[i][j]==1){  // cart에 있는 경우 -> 기존꺼 취소
+                if(possibleCnt==1){
                     seat_Map[i][j] = 0;   /* 취소해서 0으로 돌리기 */
-                    for(let k = 0; k<cart.length; k++){
+                    // for(let k = 0; k<cart.length; k++){
                         if(cart[k]==seatName){
                             cart.splice(k,1);
                             // return;
                         }
-                    }
+                    // }
+                    possibleCnt-=1;
                     render_type();
                     render_price();
                     render_table();
                     render_selectedSeats();
                 }else{  /* 2명 이상인 경우  */
-                    for(let k = 0; k<totalCnt; k++){
+                    if(seat_Map[i][j])
+                    for(let k = 0; k<2; k++){
                         seat_Map[i][j+k] = 0;
                     }
-                    for(let k = 0; k<totalCnt; k++){
+                    for(let k = 0; k<cart.length; k++){
                         if(cart[k]==seatName){
-                            cart.splice(k, 1+totalCnt);
+                            cart.splice(k, 2);
                         }
                     }
+                    possibleCnt-=2;
                     render_type();
                     render_price();
                     render_table();
                     render_selectedSeats();
                 }
             }else{  /* cart에도 없고, 예약된 좌석도 아닐시 */
-                // let tmpt = 0;
-                if(totalCnt==cart.length){
-                    alert('선택한 좌석 취소 후 선택해주세요');
-                }else{
-                    if(totalCnt==1){   /* 1명만 선택한 경우 */
-                        if(j%2!=0){  /* 짝수 열인 경우 */
-                            alert('짝수열은 선택불가');
-                        }else{
-                            seat_Map[i][j] = 1;  /* 1로 바꾸고 */
-                            cart.push(seatName);   /* 카트에도 담는 단계 */
-                        }
-                    }else{   /* 2명 이상인 경우 */
-                        for(let k = 0; k<totalCnt; k++){
-                           seat_Map[i][j+k] = 1;
-                           seatName = `${row[i]}${j+k+1}`;
-                           cart.push(seatName);   /* 카트에도 담는 단계 */
-                        }
-                        // seat_Map[i][j] = 1;  /* 1로 바꾸고 */
-                    }
-                    // render_table();
-                }
-                // console.log('tmpt',tmpt);
-            }
 
+                     if(totalCnt==cart.length){
+                        alert('선택한 좌석 취소 후 선택해주세요');
+                    }else{
+                        if(possibleCnt==1){   /* 1명만 선택한 경우 */
+                            if(j%2!=0){  /* 짝수 열인 경우 */
+                                alert('짝수열은 선택불가');
+                            }else{
+                                seat_Map[i][j] = 1;  /* 1로 바꾸고 */
+                                cart.push(seatName);   /* 카트에도 담는 단계 */
+                            }
+                        }else{   /* 2명 이상인 경우 */
+                            let possibleCnt = totalCnt-cart.length;
+                            
+                            for(let k = 0; k<2; k++){
+                               seat_Map[i][j+k] = 1;
+                               seatName = `${row[i]}${j+k+1}`;
+                               cart.push(seatName);   /* 카트에도 담는 단계 */
+
+                            }
+                            possibleCnt -= 2;
+                            console.log('가능수',possibleCnt);
+
+                            // seat_Map[i][j] = 1;  /* 1로 바꾸고 */
+                        }
+                        // render_table();
+                    }
+                    // console.log('tmpt',tmpt);
+
+
+            }
+            console.log('add_seat 할때 totalCnt',totalCnt);
             render_table();
             render_selectedSeats();
         }
@@ -351,7 +385,7 @@
             render_price();
             render_selectedSeats();
             render_typeResult();
-            add_seat();
+            // add_seat();
         }
 
         // 다음버튼

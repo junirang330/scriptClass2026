@@ -1,0 +1,120 @@
+@charset 'utf-8';
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body{
+    color: #222;
+    font-size: 16px;
+    min-width: 800px;
+}
+/* 전체 컨텐츠 css */
+.content{
+    /* width: 500px; */
+    margin: 50px auto;
+    /* border: 1px solid black; */
+    width: 600px;
+}
+/* 타이틀 css */
+.title{
+    width: 100%;
+    padding: 10px;
+    font-weight: bold;
+    font-size: 30px;
+    /* border: 1px solid black; */
+}
+/* 메인 css */
+.main{
+    width: 100%;
+    display: flex;
+}
+/* 왼쪽 사진들 box */
+.pictureBox{
+    /* border: 1px solid black; */
+    width: 250px;
+    padding: 10px;
+    /* vertical-align:10px; */
+}
+.main_picture{
+    margin-bottom: 10px;
+}
+
+/* 커피 이미지 css */
+.main_picture img{
+    width: 100%;
+    cursor: pointer;
+    
+    
+}
+.sub_picture{
+    display:flex;
+}
+.sub_picture img{
+    width: 60px;
+    cursor: pointer;
+    flex: 1;
+    padding: 3px;
+}
+
+/* 오른쪽 설명 부분 */
+.descBox{
+    width: 350px;
+    /* display: flex; */
+    /* align-items: left; */
+    /* justify-content: flex-start; */
+    padding: 10px;
+    
+
+}
+/* 아이템 설명 */
+.item_desc{
+    width: 330px;
+    height: 220px;
+    /* border: 1px solid black; */
+    padding: 10px;
+}
+.item_desc p{
+    display: block;
+    margin-bottom: 10px;
+}
+
+
+/* 장바구니 버튼 */
+#input_cart{
+    width: 100%;
+    /* height: 50px; */
+    padding: 15px;
+    font-size: 16px;
+    /* font-weight: 70; */
+    /* border */
+    margin: 10px 0;
+}
+
+/* 상세 설명 보기 글자 css */
+#detailed{
+    color: rgb(134, 12, 134);
+    cursor: pointer;
+}
+/* 모달 css */
+.modalBox{
+    opacity: 0;
+}
+.modalBox.active{
+    opacity: 1;
+}
+
+/* 판매가 css */
+.item_price{
+    color: rgb(134, 12, 134);
+    font-weight: bold;
+}
+
+h1{
+    color: #bbb;
+}
+h3{
+   margin: 20px 0; 
+   font-size: 1.3rem;
+}

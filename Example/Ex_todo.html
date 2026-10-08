@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoList 연습문제</title>
+    <style>
+        .todo-container{
+            width: 400px;
+            margin: 0 auto;
+        }
+        ul{
+            list-style: none;
+            /* width: 200px; */
+        }
+        .delbtn{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="todo-container">
+        <h1>할 일 목록</h1>
+        <div class="input-area">
+            <input id = "task" type="text" placeholder="할 일 입력"/>
+            <button onclick="addTask()">추가</button>
+        </div>
+        <ul id="tasks"></ul>
+    </div>
+    
+    <script>
+        function addTask(){
+            // 부모 ul 태그 접근
+            let tasks = document.getElementById('tasks');
+            // input 태그에 document 따기
+            let inputVal = document.getElementById('task').value;
+
+            // input에 빈값이 입력되지 못하도록 예외처리 함
+            // ★★★★★★★★★★★★★★★★★★★★★★
+            if(inputVal == '') return;
+
+            // li를 생성한다 => createElement
+            let liList = document.createElement('li');
+            // 생성한 li 안에 입력할 텍스트는 input에서 입력받은 값이어야 한다.
+            liList.innerText = inputVal;
+            // ul의 부모에 자식으로 추가 
+            tasks.appendChild(liList);
+            // li 안에 버튼을 생성하기
+            let btn = document.createElement('button');
+            // li의 부모에 자식으로 추가
+            liList.appendChild(btn);
+            // 생성한 button 태그에 class 이름 생성하는 프로퍼티
+            // ★★★★★★★★★★★★★★★★★★★★★★
+            btn.className = 'delbtn';
+            btn.innerText = 'X';
+
+            // btn을 클릭하면 삭제 (익명(이름없는) 함수)
+            btn.onclick = function(){
+                liList.remove();
+            }
+        }
+
+        </script>
+    
+</body>
+</html>
