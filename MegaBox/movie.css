@@ -611,3 +611,22 @@ section {
   background-color: inherit;
   color: inherit;
 }
+
+/* ============================================================= */
+/* [10열 줄바꿈 호버 방지] 오른쪽 끝 좌석 호버 시 다음 줄 침범 방지 */
+/* ============================================================= */
+
+/* 1. 2인 이상 선택 모드일 때, 오른쪽 끝 좌석(10, 20, 30... 100번)에 올리면 선택불가(빨간색) 및 금지 커서 */
+#table:not(.hover-count-1):not(.hover-count-0) .cell.blank:nth-child(10n):hover {
+    background-color: #dc3545 !important; /* 범례의 선택불가 레드 */
+    color: #ffffff;
+}
+
+/* 2. 10열 좌석에 올렸을 때, 다음 줄 첫 번째 좌석(11, 21, 31... 41번)이 보라색으로 변하는 것 원천 차단 */
+#table .cell:nth-child(10n):hover + .cell {
+    background-color: #6c757d !important; /* 일반 좌석 색상 유지 */
+    color: #ffffff !important;
+}
+
+
+/* 모달창 css */
