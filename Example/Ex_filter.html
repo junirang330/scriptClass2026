@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>filter</title>
+    <style>
+        .container{
+            width: 400px;
+            margin: 100px auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <button class="btn">과일</button>
+        <button class="btn">어류</button>
+        <ul class="cart"></ul>
+    </div>
+
+    <script>
+        let menu=[
+            {id:0, name: '딸기', category: 1},
+            {id:1, name: '포도', category: 1},
+            {id:2, name: '바나나', category: 1},
+            {id:3, name: '고등어', category: 2},
+            {id:4, name: '조기', category: 2},
+            {id:5, name: '갈치', category: 2},
+        ];
+        // console.log(menu[1][2]);
+        // 문제) [과일]버튼을 클릭하면, menu의 오브젝트 배열의 카테고리가 1이면
+        // 과일의 종류인 딸기, 포도, 바나나가 ul의 li로 추가되도록 하고,
+        // [오류]버튼을 클릭하면, 카테고리가 2인 어류의 종류인 고등어, 조기, 갈치가
+        // ul의 li로 추가되도록 하라.
+
+        let btn = document.querySelectorAll('.container .btn');
+        let cart = document.querySelector('.cart');
+               
+        // ul의 li 그림그리는 render(카테고리 숫자)함수 작성
+        function render(cateNum){
+            // filter() 메소드 사용 : 조건이 만족할때, 새로운 배열로 반환
+            // 대입형 익명함수 사용
+            // filterMenu 변수의 값은 menu.filter에서 조건에 만족하여 추출된
+            // 값들로 배열리 새로 생성됨.
+            let filterMenu = menu.filter((item) => {
+                return item.category===cateNum;
+            });
+
+            // innerHTML 그림그리기
+            let result = '';
+            for(let i = 0; i<filterMenu.length; i++){
+                result += `<li>${filterMenu[i].name}</li>`;
+            }
+            cart.innerHTML=result;
+        }
+        
+        //render()함수 호출하여 기본 그림 그린다.
+        render(1);
+        // 버튼 배열로 for문 돌리기
+        for(let i = 0; i<btn.length; i++){
+            btn[i].addEventListener('click',()=>{
+                let cateIndex = i+1;
+                return render(cateIndex);  
+            });
+        }
+        
+    </script>
+</body>
+</html>

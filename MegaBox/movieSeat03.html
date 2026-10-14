@@ -274,14 +274,22 @@
                     render_table();
                     render_selectedSeats();
                 }else{  /* 2명 이상인 경우  */
-                    if(seat_Map[i][j])
-                    for(let k = 0; k<2; k++){
-                        seat_Map[i][j+k] = 0;
+                    if(seat_Map[i][j+1]==1){
+                        for(let k = 0; k<2; k++){
+                            seat_Map[i][j+k] = 0;
+                         }
+                         render_selectedSeats();
+                    }else{
+                        for(let k = 0; k<2; k++){
+                            seat_Map[i][j-k] = 0;
+                        }
+                        render_selectedSeats();
                     }
                     for(let k = 0; k<cart.length; k++){
                         if(cart[k]==seatName){
                             cart.splice(k, 2);
                         }
+                        render_selectedSeats();
                     }
                     possibleCnt-=2;
                     render_type();

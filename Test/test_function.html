@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수 종류</title>
+</head>
+<body>
+
+    <script>
+        // 선언적 함수 : 우선권이 주어짐
+        // 호이스팅 이슈가 존재함 => 함수 전체가 스코프(영역) 
+        // 최상단으로 끌어올져지는 현상으로 함수를 선언하기 전에
+        // 호출하여 사용할 수 있다.
+        sayHello();  // 호출해도 에러 없음
+        function sayHello(){
+            console.log('01: Hello');
+        }
+        sayHello();  // 호출해도 에러 없음
+        // 익명 함수 : 함수의 이름이 존재하지 않는 함수로 호출이 불가능
+        // 함수를 호출할 수 없으므로 변수에 대입하여 사용한다.
+        // 그래서 다른말로 대입형 함수라고도 부른다.
+        // sayHello02();  // 익명함수 호출시 에러
+        let sayHello02 = function(){
+            console.log('02: Hello02');
+        }
+        sayHello02();
+
+        // 함수 안에 함수를 또 다른 인수로 호출할 수 있다.
+        function say(){
+            return 'sayHello';
+        }
+        function greeting(helloMsg, name){
+            console.log(helloMsg()+" "+name);
+        }
+        greeting(say, 'javaScript');
+
+        // 화살표 함수 : 자바스크립트 또는 리엑트에서 주로 사용하는 함수작성 방법
+        // 익명함수보다 표현식이 단순하고 간결한 문법으로 함수를 만들 수 있다.
+        // let 이름 = (인수1, 인수2) => 실행할 식
+        let sum = (a, b) => a+b;  // 삼항연산자
+        let sum01 = (a, b) => a+b>10?1:2;  // 삼항연산자
+        console.log('sum 함수', sum(2,5));
+        console.log('sum01 함수', sum01(3,6));
+        let sum02 = function(a, b){
+            return a+b;
+        }
+        console.log('sum02 함수', sum02(10,5));
+        function sum03(a, b){
+            let result = a+b;
+            return result;
+        }
+        console.log('sum03 함수', sum03(5,7));
+
+        // 즉시 실행함수
+        (function(){
+            document.write('<p>Hello JavaScript</p>');
+        })();
+        // 호출없이도, 화면에 Hello JavaScript  등장
+
+        // JavaScript에서 a==b는, a,b의 값이 같은지만 비교한다.
+        // a==b는 a,b의 값과 변수의 유형이 같은지까지 비교한다.
+        // 배열에서 filter()메소드 => 조건에 만족하는 요소들만 새로운 배열로 반환
+        let num = [1,2,3,4,5,6,7,8,9,10];
+        // 대입형 익명함수 + 화살표함수
+        let isOdd = (currentNum) => {
+            return currentNum % 2 == 0;
+        }
+        console.log('짝수 출력', num.filter(isOdd));
+
+        // 화살표 함수만 이용
+        // filter() 메소드의 item 이란, num의 배열의 각 값들을 의미함
+        num = num.filter((number) => number % 2 == 1);
+        // 위와 동일 num = num.filter((item) => item % 2 == 1);
+        console.log('홀수 출력', num);
+
+
+    </script>
+    
+</body>
+</html>

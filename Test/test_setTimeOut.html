@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setTimeOut() 메소드</title>
+</head>
+<body>
+    <div id="clock"></div>
+    
+    <script>
+        // setTimeOut() => 지정한 시간에 한번만 실행
+        // setTimeOut(() => 실행, 밀리초)
+        // 1밀리초 = 0.001초, 10밀리초 = 0.01초, 2500밀리초 = 2.5초
+        setTimeout(() => console.log('2초 후 실행'), 2000);
+        
+        let timer = setTimeout(()=>{
+            console.log('3초 후 실행');
+        }, 3000);
+        
+        // 2초 후 타이머 취소할때 사용
+        setTimeout(()=>{
+            clearTimeout(timer);  // 멈추는 기능
+            console.log('타이머 취소');
+        },5000);
+
+        // 디지털 타이머
+        let clock = document.getElementById('clock');
+        function setClock(){
+            let now = new Date();
+            let s = now.getHours() + " : " + now.getMinutes() + " : " + now.getSeconds();
+            clock.innerHTML = s;
+            // SetTimeout() => 한번 실행,
+            // setClock() 함수가 실행된 뒤 완전히 끝난 시점을 기준으로
+            // 1초 후에 다시 setTimeout을 실행되는 재귀 방식이다.
+            // setTimeout('setClock()', 1000);
+        }
+
+      
+
+        setClock();
+
+        setInterval(setClock, 1000);
+
+        // 
+        
+
+
+    </script>
+
+</body>
+</html>

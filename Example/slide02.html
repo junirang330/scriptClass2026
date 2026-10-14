@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>슬라이드02</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+        body{
+            background-color: #f5f5f5;
+            /* position: relative; */
+            display: flex;
+        }
+        .menu ul{
+            list-style: none;
+            /* position: absolute; */
+            /* height: 100%; */
+        }
+        a{
+            text-decoration: none;
+            color: black;
+        }
+        #menuBtn{
+            width: 40px;
+            height: 40px;
+            left: 0;
+            top: 0;
+            background-color: #222;
+            color: white;
+            border-radius: 5px;
+            margin: 10px;
+            position: absolute;
+            /* position: relative; */
+            /* display:  */
+            cursor: pointer;
+            z-index: 3;
+            border: 1px solid white;
+        }
+        h1{
+            display: block; 
+            margin-left: 70px;
+        }
+        h1.right{
+            margin-left: 220px;
+        }
+        nav#menu{
+            top: 0;
+            position: absolute;
+            display: none;
+            width: 150px;
+            background-color: #5a5a5a;
+            height:100%;
+            /* position: fixed; */
+            z-index: 1;
+            transition:  0.3s;
+            
+            /* display: inline-block; */
+        }
+        nav#menu.show{
+            display: block;
+            position: fixed;
+            /* width: 300px; */
+            /* position: absolute; */
+            /* transition: transform 0.3s; */
+            /* margin-right: 150px; */
+        }
+        nav#menu li a{
+            color: white;
+            display: inline-block;
+            margin: 20px 10px;
+        }
+        
+    </style>
+</head>
+<body>
+    <h1>DOM 실습 - 왼쪽 슬라이드 메뉴</h1>
+    <button id="menuBtn">&#x2630;</button>
+    <nav id="menu">
+        <ul>
+            <li><a href="#">홈</a></li>
+            <li><a href="#">서비스</a></li>
+            <li><a href="#">문의</a></li>
+            <li><a href="#">연락처</a></li>
+            <li><a href="#">소개</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        let menuBtn = document.getElementById('menuBtn');
+        let menu = document.getElementById('menu');
+        let h1 = document.querySelector('h1');
+
+        menuBtn.addEventListener('click', ()=>{
+            //toggle
+            menu.classList.toggle('show');
+            h1.classList.toggle('right');
+            // console.log(1);
+        })
+    </script>
+    
+</body>
+</html>
