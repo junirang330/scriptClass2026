@@ -8,84 +8,85 @@
 </head>
 <body>
     <div id="container"></div>
-    
+   
     <script>
-        let menus = [
-            { id: 0, name: '아메리카노', type: 'HOT', price: 1000,quantity:1, classify: 0},
-            { id:1, name: '아메리카노', type: 'ICE', price: 1300,quantity:1, classify: 0 },
-            { id: 2, name: '바닐라라떼', type: 'HOT', price: 2500,quantity:1, classify: 0 },
-            { id: 3, name: '바닐라라떼', type: 'ICE', price: 2800,quantity:1, classify: 0 },
-            { id: 4, name: '연유라떼', type: 'HOT', price: 2500,quantity:1, classify: 0 },
-            { id: 5, name: '연유라떼', type: 'ICE', price: 2800,quantity:1, classify: 0 },
-            { id: 6, name: '카라멜마끼아또', type: 'HOT', price: 2800,quantity:1, classify: 0 },
-            { id: 7, name: '카라멜마끼아또', type: 'ICE', price: 3000,quantity:1, classify: 0 },
-            { id: 8, name: '카페모카', type: 'HOT', price: 3000,quantity:1, classify: 0 },
-            { id: 9, name: '카페모카', type: 'ICE', price: 3300,quantity:1, classify: 0 },
-            { id: 10, name: '딥카페라테', type: 'HOT', price: 3400,quantity:1, classify: 0 },
-            { id: 11, name: '딥카페라테', type: 'ICE', price: 3700,quantity:1, classify: 0 },
-            { id: 12, name: '초코라떼', type: 'HOT', price: 2500, quantity: 1, classify: 1 },
-            { id: 13, name: '초코라떼', type: 'ICE', price: 2800, quantity: 1, classify: 1  },
-            { id: 14, name: '녹차라떼', type: 'HOT', price: 2800, quantity: 1, classify: 1  },
-            { id: 15, name: '녹차라떼', type: 'ICE', price: 3000, quantity: 1, classify: 1  },
-            { id: 16, name: '고구마라떼', type: 'HOT', price: 3000, quantity: 1, classify: 1  },
-            { id: 17, name: '고구마라떼', type: 'ICE', price: 3300, quantity: 1, classify: 1  },
-            { id: 18, name: '딸기라떼', type: 'ICE', price: 3500, quantity: 1, classify: 1  },
-            { id: 19, name: '복숭아아이스티', type: 'ICE', price: 2000, quantity: 1, classify: 1  },
-            { id: 20, name: '레몬에이드', type: 'ICE', price: 3000, quantity: 1, classify: 1  },
-            { id: 21, name: '자몽에이드', type: 'ICE', price: 3000, quantity: 1, classify: 1  },
-            { id: 22, name: '청포도에이드', type: 'ICE', price: 3000, quantity: 1, classify: 1  },
-            { id: 23, name: '플레인요거트스무디', type: 'ICE', price: 3500, quantity: 1, classify: 1  }
-        ];
+        // id : pk 역할
+        // for 문의 i = 0은 index, index는 id가 아니다.
 
-        let index;
+        let menus = [
+            { id: 0, name: '아메리카노', type: 'HOT', price: 1000,quantity:1, images: 'images_kiosk/00hot아메리카노.png', classify:1 },
+            { id:1, name: '아메리카노', type: 'ICE', price: 1300,quantity:1 , images: 'images_kiosk/01ice아메리카노.png', classify:1 },
+            { id: 2, name: '바닐라라떼', type: 'HOT', price: 2500,quantity:1 , images: 'images_kiosk/02hot바닐라라떼.png', classify:1 },
+            { id: 3, name: '바닐라라떼', type: 'ICE', price: 2800,quantity:1 , images: 'images_kiosk/03ice바닐라라떼.png', classify:1 },
+            { id: 4, name: '연유라떼', type: 'HOT', price: 2500,quantity:1 , images: 'images_kiosk/04hot연유라떼.png', classify:1 },
+            { id: 5, name: '연유라떼', type: 'ICE', price: 2800,quantity:1 , images: 'images_kiosk/05ice연유라떼.png', classify:1 },
+            { id: 6, name: '카라멜마끼아또', type: 'HOT', price: 2800,quantity:1 , images: 'images_kiosk/06hot카라멜마끼아또.png', classify:1 },
+            { id: 7, name: '카라멜마끼아또', type: 'ICE', price: 3000,quantity:1 , images: 'images_kiosk/07ice카라멜마끼아또.jpg', classify:1 },
+            { id: 8, name: '카페모카', type: 'HOT', price: 3000,quantity:1 , images: 'images_kiosk/08hot카페모카.jpg', classify:1 },
+            { id: 9, name: '카페모카', type: 'ICE', price: 3300,quantity:1 , images: 'images_kiosk/09ice카페모카.jpg', classify:1 },
+            { id: 10, name: '딥카페라테', type: 'HOT', price: 3400,quantity:1, images: 'images_kiosk/10hot딥카페라떼.jpg', classify:1  },
+            { id: 11, name: '딥카페라테', type: 'ICE', price: 3700,quantity:1, images: 'images_kiosk/11ice딥카페라떼.jpg', classify:1  },
+            { id: 12, name: '초코라떼', type: 'HOT', price: 2500, quantity: 1, images: 'images_kiosk/12hot초코라떼.jpg', classify:2  },
+            { id: 13, name: '초코라떼', type: 'ICE', price: 2800, quantity: 1, images: 'images_kiosk/13ice초코라떼.jpg', classify:2  },
+            { id: 14, name: '녹차라떼', type: 'HOT', price: 2800, quantity: 1, images: 'images_kiosk/14hot녹차라떼.jpg', classify:2  },
+            { id: 15, name: '녹차라떼', type: 'ICE', price: 3000, quantity: 1, images: 'images_kiosk/15ice녹차라떼.jpg', classify:2  },
+            { id: 16, name: '고구마라떼', type: 'HOT', price: 3000, quantity: 1, images: 'images_kiosk/16hot고구마라떼.jpg', classify:2  },
+            { id: 17, name: '고구마라떼', type: 'ICE', price: 3300, quantity: 1, images: 'images_kiosk/17ice고구마라떼.jpg', classify:2  },
+            { id: 18, name: '딸기라떼', type: 'ICE', price: 3500, quantity: 1, images: 'images_kiosk/18딸기라떼.jpg', classify:2  },
+            { id: 19, name: '복숭아아이스티', type: 'ICE', price: 2000, quantity: 1, images: 'images_kiosk/19복숭아아이스티.jpg', classify:2  },
+            { id: 20, name: '레몬에이드', type: 'ICE', price: 3000, quantity: 1, images: 'images_kiosk/20레몬에이드.jpg', classify:2  },
+            { id: 21, name: '자몽에이드', type: 'ICE', price: 3000, quantity: 1, images: 'images_kiosk/21자몽에이드.jpg', classify:2  },
+            { id: 22, name: '청포도에이드', type: 'ICE', price: 3000, quantity: 1, images: 'images_kiosk/22청포도에이드.jpg', classify:2  },
+            { id: 23, name: '플레인요거트스무디', type: 'ICE', price: 3500, quantity: 1, images: 'images_kiosk/23플레인요거트스무디.jpg', classify:2  },
+        ];
         let container = document.querySelector('#container'); 
         
         // for 문대로 돌면, 메뉴 순서대로 그려지다 보니, 아래로 쌓이는 방식에서 예외가 발생함
         // menus 배열에서 id 속성을 이용하여, 인덱스를 저장하여 기억해내는 임시 배열을 이용
         let idxs = [];  // 빈 배열 생성
 
+        // let index; 
         function render(index){
-            console.log('index값3333',index);
             let result = '';
             // <!-- 상단(메뉴판 + 주문내역) -->
             result += `<div class="upper">
                 <div class="menu">
                 <h2>원하시는 음료를 선택해 주세요</h2>
                 <h4>Pleas choose the drink you want</h4>
-                <button class="menuText">MENU</button>
-                <button class = "menuText">COFFEE</button>
-                <button class = "menuText">DRINK</button>
+                <button class="menuBtn">MENU</button>
+                <button class="menuBtn">COFFEE</button>
+                <button class="menuBtn">DRINK</button>
                 <ul id = "menuTables">`;
-            
-            console.log('3123123123',index);        
-            // console.log('121212',menus[13].classify);
-                    
+
             //반복문으로 그리기
-            for(let i = 0; i<menus.length; i++){
-                if(index!=0 && index!=1){
-                    result += `<li onclick = "add_orders(${i})">`;
-                    i % 2 == 0 ? 
-                    result += `<img src="images_kiosk/hot_coffee.png"/></br>` : 
-                    result += `<img src="images_kiosk/ice_coffee.png"/></br>`;
-    
-                    result +=  
-                        `<p class = "menu_type">${menus[i].type}</p>
-                        <p class = "menu_name">${menus[i].name}</p>
-                        <p class = "menu_price">${menus[i].price}</p>
-                        </li>`;
-                }else if(menus[i].classify == index){
-                     result += `<li onclick = "add_orders(${i})">`;
-                    i % 2 == 0 ? 
-                    result += `<img src="images_kiosk/hot_coffee.png"/></br>` : 
-                    result += `<img src="images_kiosk/ice_coffee.png"/></br>`;
-    
-                    result +=  
-                        `<p class = "menu_type">${menus[i].type}</p>
-                        <p class = "menu_name">${menus[i].name}</p>
-                        <p class = "menu_price">${menus[i].price}</p>
-                        </li>`;
-                }
-            } 
+            if(index!=1 && index!=2){  // 커피+드링크
+                for(let i = 0; i<menus.length; i++){
+                result += `<li onclick = "add_orders(${i})">`;
+                result += `<img src="${menus[i].images}"/></br>`; 
+
+                result +=  
+                    `<p class = "menu_type">${menus[i].type}</p>
+                    <p class = "menu_name">${menus[i].name}</p>
+                    <p class = "menu_price">${menus[i].price}</p>
+                    </li>`;
+                } 
+            }else {  // 커피 or 드링크 선택한 경우
+                for(let i = 0; i<menus.length; i++){
+                    if(menus[i].classify == index){
+                        result += `<li onclick = "add_orders(${i})">`;
+                        result += `<img src="${menus[i].images}"/></br>`; 
+
+                        result +=  
+                            `<p class = "menu_type">${menus[i].type}</p>
+                            <p class = "menu_name">${menus[i].name}</p>
+                            <p class = "menu_price">${menus[i].price}</p>
+                            </li>`;
+                    }
+                } 
+            }
+
+        
+
             
 
             result += `</ul></div>
@@ -135,8 +136,7 @@
                 </div>`;
             
             container.innerHTML = result;
-            // coffee();
-
+            divide();
         }    
 
         // 메뉴 버튼 li 눌렀을때, 함수
@@ -189,7 +189,7 @@
         }
         // 삭제 함수
         function deletes(i){
-            idxs[i].quantity = 0;
+            idxs[i].quantity = 1;
 
             // 인덱스 배열에서도 삭제하기
             // idxs.splice(menus[i].id,1);        
@@ -207,72 +207,35 @@
         }
         function reset(){
             for(let i = 0; i<idxs.length; i++) {
-                idxs[i].quantity = 0;
+                idxs[i].quantity = 1;
             }
             idxs = [];  //인덱스 배열 초기화 
-            render();
+            render(index);
             console.log(`idxs : ${idxs}`);
         }
         render(index);
 
-        // ------------------------------------------------------------------------
-        let menuText = document.querySelector('.menuText');
-        // let coffeeBtn = document.querySelector('.coffeeBtn');
-        // let drinkBtn = document.querySelector('.drinkBtn');
-        // let coffeeTotal = coffeeBtn.length;
-        
-        // menuText.forEach((item) => {
-        //     item.addEventListener('click', ()=>{
-        //         // console.log('22222');
-        //         // index = 2;
-        //         // render();
-        //     });
-        // });
-        
-        // index = 2;
-        
-        let isPlay = true;
-           
-        function tmp(index){
-            console.log('15',index);
-            for(let i = 0; i<menuText.length; i++){
-                menuText[i].addEventListener('click', ()=>{
-                    index = 0;
+        // -----------------------------------------------------------------------
+        // let btns = menuBtns.length;
+        // filter 메소드 이용
+        // 커피, 드링크 주문내역 담기
+
+
+        function divide(){
+            let menuBtns = document.querySelectorAll('.menuBtn');
+            for(let i = 0; i<menuBtns.length; i++){
+                menuBtns[i].addEventListener('click', ()=>{ 
+                    // console.log('333');
+                    index = i;
+                    // console.log(index);
                     render(index);
                 });
-            
             }
+        } 
 
-        }
-        // coffeeBtn.forEach((item) => {
-            
-        tmp();
-        render(index);
-        // // 버튼 배열로 for문 돌리기
-        // for(let i = 0; i<btn.length; i++){
-        //     btn[i].addEventListener('click',()=>{
-        //         let cateIndex = i+1;
-        //         return render(cateIndex);  
-        //     });
-        // }
+        divide();
 
-            
-        // });
 
-        
-        
-        // coffee();
-      
-
-        // drinkBtn.addEventListener('click', ()=>{
-        //     console.log('4444');
-            
-        //     index = 1;
-        //     render(index);
-            
-        // });
-
-        
 
 
     </script>
